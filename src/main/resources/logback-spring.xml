@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+    <!-- Appenders -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d %5p [%c] %m%n</Pattern>
+        </encoder>
+    </appender> 
+
+    <appender name="console-infolog" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>%d %5p %m%n</Pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logger -->
+    <springProfile name="develop">
+		<logger name="com.clubddaegu_admin" level="DEBUG" 	appender-ref="console" />			<!-- ERROR log4jdbc 옵션 -->
+		<logger name="jdbc" 				level="OFF" 	appender-ref="console"/>			<!-- log4jdbc 옵션 -->
+		<logger name="jdbc.sqltiming" 		level="OFF" 	appender-ref="console-infolog" />	<!-- DEBUG 쿼리문 수행시간 -->
+		<logger name="jdbc.sqlonly" 		level="INFO" 	appender-ref="console-infolog" />	<!-- INFO sql문만 로깅할지 여부 -->
+		<logger name="jdbc.connection" 		level="OFF"	 	appender-ref="console"/>			<!-- connection open close 여부 -->
+		<logger name="jdbc.resultset" 		level="OFF" 	appender-ref="console-infolog" />	<!-- ResultSet 포함 모든 JDBC 호출 정보 -->
+		<logger name="jdbc.resultsettable" 	level="OFF" 	appender-ref="console-infolog" />	<!-- INFO SQL 결과 조회된 데이터의 table -->
+	</springProfile>
+	<springProfile name="production">
+	    <logger name="com.clubddaegu_admin" level="DEBUG" 	appender-ref="console" />
+	    <logger name="jdbc" 				level="ERROR" 	appender-ref="console"/>			<!--  log4jdbc 옵션 -->
+	    <logger name="jdbc.sqltiming" 		level="ERROR" 	appender-ref="console-infolog" />	<!-- 쿼리문 수행시간 -->
+	    <logger name="jdbc.sqlonly" 		level="ERROR" 	appender-ref="console-infolog" />	<!-- sql문만 로깅할지 여부 -->
+	    <logger name="jdbc.connection" 		level="ERROR"	appender-ref="console"/>			<!-- connection open close 여부 -->
+	    <logger name="jdbc.resultset" 		level="ERROR" 	appender-ref="console-infolog" />	<!-- ResultSet 포함 모든 JDBC 호출 정보 -->
+	    <logger name="jdbc.resultsettable" 	level="ERROR" 	appender-ref="console-infolog" />	<!-- SQL 결과 조회된 데이터의 table -->
+	</springProfile>
+	
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="console" />
+    </root>
+</configuration>

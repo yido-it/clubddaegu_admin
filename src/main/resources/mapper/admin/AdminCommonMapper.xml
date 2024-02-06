@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clubddaegu_admin.repository.admin.AdminCommonMapper">
+
+	<select id="getCommonCode" resultType="CdCommon">
+		SELECT CO_DIV
+			 , CD_DIVISION
+			 , CD_CODE
+			 , CD_TITLE1
+			 , CD_TITLE2
+			 , CD_TITLE3
+			 , CD_TITLE4
+			 , CD_LENGTH
+		  FROM cd_common
+		 WHERE CD_USEYN = 'Y'
+		<if test='coDiv != null and coDiv != ""'>
+		  AND CO_DIV = #{coDiv}
+		</if> 	  
+		<if test='cdDivision != null and cdDivision != ""'>
+		  AND CD_DIVISION = #{cdDivision}
+		</if> 	 
+		<if test='cdCode != null and cdCode != ""'>
+		  AND CD_CODE = #{cdCode}
+		</if> 	   
+	</select>
+	
+	<select id="getCommonCodeList" resultType="CdCommon">
+		SELECT CO_DIV
+			 , CD_DIVISION
+			 , CD_CODE
+			 , CD_TITLE1
+			 , CD_TITLE2
+			 , CD_TITLE3
+			 , CD_TITLE4
+			 , CD_LENGTH
+			 , CD_USEYN
+		  FROM cd_common
+		 WHERE 1 = 1
+		<if test='coDiv != null and coDiv != ""'>
+		 AND CO_DIV = #{coDiv}
+		</if> 	  
+		<if test='cdDivision != null and cdDivision != ""'>
+		  AND CD_DIVISION = #{cdDivision}
+		</if> 	 
+		<if test='cdCode != null and cdCode != ""'>
+		  AND CD_CODE = #{cdCode}
+		</if>
+		<if test='cdType != null and cdType != ""'>
+		  AND CD_TYPE = #{cdType}
+		</if> 	 		
+		<if test='cdRefer != null and cdRefer != ""'>
+		  AND CD_REFER = #{cdRefer}
+		</if> 					   
+		<if test='cdUseyn != null and cdUseyn != ""'>
+		  AND CD_USEYN = #{cdUseyn}
+		</if> 					   
+		ORDER BY CD_SORT
+	</select>
+	
+	<select id="getCommonCodeDetailList" resultType="CdCommon">
+		SELECT CO_DIV
+			 , CD_DIVISION
+			 , CD_CODE
+			 , CD_TITLE1
+			 , CD_TITLE2
+			 , CD_TITLE3
+			 , CD_TITLE4
+			 , CD_LENGTH
+		  FROM cd_common
+		 WHERE CD_USEYN = 'Y'
+		<if test='coDiv != null and coDiv != ""'>
+		  AND CO_DIV = #{coDiv}
+		</if> 	  
+		<if test='cdDivision != null and cdDivision != ""'>
+		  AND CD_DIVISION = #{cdDivision}
+		</if> 	 
+		<if test='cdCode != null and cdCode != ""'>
+		  AND LEFT(CD_CODE, 2) = #{cdCode}
+		</if> 			   
+	</select>
+
+</mapper>

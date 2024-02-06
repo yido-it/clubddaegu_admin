@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clubddaegu_admin.repository.admin.AdminUserMapper">
+
+	<select id="selectAdminUser" resultType="AdminUser">
+        
+		SELECT A.USER_ID
+			 , A.USER_NM
+			 , A.USER_PW
+			 , A.USER_AUTH
+			 , B.CD_TITLE1 AS USER_AUTH_NM
+			 , A.USE_YN
+			 , A.INPUT_STAFF
+			 , A.INPUT_DATETIME
+			 , A.INPUT_IP
+		  FROM ADMIN_USER A
+		  LEFT OUTER JOIN CD_COMMON B ON B.CD_CODE = A.USER_AUTH AND B.CD_DIVISION = 'A32'
+		 WHERE 1 = 1
+	 	   AND A.USER_ID = #{userId}
+	 	   AND A.USE_YN = 1
+	 	   
+	</select>
+
+	<select id="selectAdminUserList" resultType="AdminUser">
+		SELECT A.USER_ID
+			 , A.USER_NM
+			 , A.USER_PW
+			 , A.USER_AUTH
+			 , B.CD_TITLE1 AS USER_AUTH_NM
+			 , A.USE_YN
+			 , A.INPUT_STAFF
+			 , A.INPUT_DATETIME
+			 , A.INPUT_IP
+		FROM ADMIN_USER A
+		LEFT OUTER JOIN CD_COMMON B ON B.CD_CODE = A.USER_AUTH AND B.CD_DIVISION = 'A32'
+		<if test='userId != null and userId != ""'>
+		   AND A.USER_ID = #{userId}
+		</if> 	  
+		<if test='useYn != null'>
+		   AND A.USE_YN = #{useYn} 
+		</if>
+	</select>
+	
+	<insert id="insertSmsAdmin">
+		<selectKey resultType="String" keyProperty="cdCode" order="BEFORE">
+			SELECT IFNULL(MAX(CAST(CD_CODE AS SIGNED)), 0) + 1
+				FROM CD_COMMON
+			WHERE 1 = 1
+				AND CO_DIV = #{coDiv}
+				AND CD_DIVISION = #{cdDivision}
+		</selectKey>
+		INSERT INTO CD_COMMON (
+			CO_DIV,
+			CD_DIVISION,
+			CD_CODE,
+			CD_TITLE1,
+			CD_TITLE2,
+			CD_TITLE3,
+			CD_USEYN,
+			CD_SORT,
+			INPUT_STAFF,
+			INPUT_DATETIME,
+			INPUT_IP
+		) VALUES (
+            #{coDiv},
+            #{cdDivision},
+            #{cdCode},
+            #{cdTitle1},
+            #{cdTitle2},
+			#{cdTitle3},
+			#{cdUseyn},
+			#{cdCode},
+			#{userId},
+			NOW(),
+			#{ipAddr}
+        )
+	</insert>	
+	<update id="updateSmsAdmin" parameterType="AdminUser">
+		UPDATE CD_COMMON
+		SET
+			CD_TITLE2 = #{cdTitle2},
+			CD_TITLE3 = #{cdTitle3},
+			CD_USEYN = #{cdUseyn},
+			UPDATE_STAFF = #{userId},
+			UPDATE_DATETIME = NOW(),
+			UPDATE_IP = #{ipAddr}
+		WHERE 1 = 1
+			AND CO_DIV = #{coDiv}
+			AND CD_DIVISION = #{cdDivision}
+			AND CD_CODE = #{cdCode}
+	</update>
+	<delete id="deleteSmsAdmin" parameterType="AdminUser">
+		DELETE FROM CD_COMMON
+		WHERE 1 = 1
+			AND CO_DIV = #{coDiv}
+			AND CD_DIVISION = #{cdDivision}
+			AND CD_CODE = #{cdCode}
+	</delete>
+	
+	
+	<insert id="insertAdminUser">
+		INSERT INTO ADMIN_USER (
+			   USER_ID
+			 , USER_NM
+			 , USER_PW
+			 , USER_AUTH
+			 , USE_YN
+			 , INPUT_STAFF
+			 , INPUT_DATETIME
+			 , INPUT_IP
+		) VALUES (
+              #{userId}
+            , #{userNm}
+            , #{userPw}
+            , #{userAuth}
+            , #{useYn}
+            , #{inputStaff}
+            , NOW()
+            , #{inputIp}
+        )
+	</insert>	
+	<update id="updateAdminUser" parameterType="AdminUser">
+		UPDATE
+			ADMIN_USER
+			<trim prefix="SET" suffixOverrides=",">
+				<if test='userNm != null and userNm != ""'>   
+				USER_NM = #{userNm},
+				</if>
+			 	<if test='userPw != null and userPw != ""'>
+				USER_PW = #{userPw},
+				</if>
+				<if test='userAuth != null and userAuth != ""'>
+				USER_AUTH = #{userAuth},
+				</if>
+				<if test='useYn != null'>
+				USE_YN = #{useYn},
+				</if>
+			</trim>
+		WHERE 1 = 1
+			AND USER_ID = #{userId}
+	</update>
+	<delete id="deleteAdminUser" parameterType="AdminUser">
+		DELETE FROM ADMIN_USER
+		WHERE 1 = 1
+			AND USER_ID = #{userId}
+	</delete>
+</mapper>

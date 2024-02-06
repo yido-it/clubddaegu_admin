@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clubddaegu_admin.repository.admin.DailyReportMapper">
+	
+	<select id="getDailyReport" resultType="DailyReport">
+		/* 일매출 */
+		SELECT *
+		  FROM daily_report
+		 WHERE close_date = #{searchDt} 	 
+	</select>
+	
+	<delete id="deleteDailyReport">
+		/* 일매출 삭제 */
+		DELETE FROM daily_report
+		 WHERE close_date = #{closeDate} 	 
+	</delete>
+	
+	<select id="getYearReport" resultType="DailyReport">
+		/* 연간실적 */
+		SELECT SUM(daily_sales_actual) AS yearlySalesActual
+		  FROM daily_report
+		 WHERE close_date LIKE CONCAT(#{planYear}, '%') 
+	</select>
+
+
+	<insert id="insertDailyReport">
+		/* 일매출 insert */
+		INSERT INTO daily_report
+		(close_date			, daily_room_sales_cnt		, daily_sales_target		, daily_sales_actual
+		, room_sales		, room_price				, restaurant_sales			, etc_sales
+		, month_sales		, input_staff				, input_datetime			, input_ip
+		, update_staff		, update_datetime			, update_ip)
+		VALUES
+		(#{closeDate}		, #{dailyRoomSalesCnt}		, #{dailySalesTarget}		, #{dailySalesActual}
+		, #{roomSales}		, #{roomPrice}				, #{restaurantSales}		, #{etcSales}
+		, #{monthSales}		, #{inputStaff}				, now()						, #{inputIp}	
+		, #{updateStaff}	, now()						, #{updateIp})
+
+	</insert>
+	
+	<insert id="insertDailyReportLog">
+		/* 일매출 로그 insert */
+		
+		INSERT INTO daily_report_log
+		(LOG_DIV
+		, close_date		, daily_room_sales_cnt		, daily_sales_target		, daily_sales_actual
+		, room_sales		, room_price				, restaurant_sales			, etc_sales
+		, month_sales		, input_staff				, input_datetime			, input_ip
+		, update_staff		, update_datetime			, update_ip)
+		SELECT
+		#{logDiv}
+		, close_date		, daily_room_sales_cnt		, daily_sales_target		, daily_sales_actual
+		, room_sales		, room_price				, restaurant_sales			, etc_sales
+		, month_sales		, input_staff				, now()						, input_ip
+		, update_staff		, now()						, update_ip
+		FROM daily_report
+		WHERE close_date 		= #{closeDate}
+	
+	</insert>
+
+	
+</mapper>

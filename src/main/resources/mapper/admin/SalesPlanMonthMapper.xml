@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clubddaegu_admin.repository.admin.SalesPlanMonthMapper">
+	
+
+	<select id="getSalesPlanMonth" resultType="SalesPlanMonth">
+		/* 월 계획 */
+		SELECT *
+		  FROM sales_plan_month
+		 WHERE plan_month = #{planMonth} 	 
+	</select>
+	
+	<select id="getSalesPlanYear" resultType="SalesPlanMonth">
+		/* 년 계획 */
+		SELECT SUM(room_revenue) AS roomRevenue
+			 , SUM(total_food) AS totalFood
+			 , SUM(total_other) AS totalOther
+		  FROM sales_plan_month
+		 WHERE plan_month LIKE CONCAT(#{planYear}, '%')
+	</select>
+	
+</mapper>
