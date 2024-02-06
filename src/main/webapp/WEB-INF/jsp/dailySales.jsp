@@ -10,6 +10,7 @@
 .reportContent {padding-top:5px;border-bottom:1px solid #80808085}
 .reportRow {height: 40px;}
 .content { width:70%; display:flex; }
+.reportContent input {text-align:right}
 </style>
 <body class="fixed-header desktop">  
 
@@ -59,9 +60,14 @@
 									
 									<div class="col-3 reportTitle"></div>
 									<div class="col-3 reportContent"></div>
-									
 								</div>	
-						
+								
+								<div class="row reportRow">
+									<div class="col-3 reportTitle">비고</div>
+									<div class="col-9 reportContent">
+										<textarea rows="5" class="form-control" id="remark2"></textarea>
+									</div>
+								</div>	
 							</div>
 						</div>	
 						
