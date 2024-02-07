@@ -29,12 +29,12 @@
 		(close_date			, daily_room_sales_cnt		, daily_sales_target		, daily_sales_actual
 		, room_sales		, room_price				, restaurant_sales			, etc_sales
 		, month_sales		, input_staff				, input_datetime			, input_ip
-		, update_staff		, update_datetime			, update_ip)
+		, update_staff		, update_datetime			, update_ip					, remark)
 		VALUES
 		(#{closeDate}		, #{dailyRoomSalesCnt}		, #{dailySalesTarget}		, #{dailySalesActual}
 		, #{roomSales}		, #{roomPrice}				, #{restaurantSales}		, #{etcSales}
 		, #{monthSales}		, #{inputStaff}				, now()						, #{inputIp}	
-		, #{updateStaff}	, now()						, #{updateIp})
+		, #{updateStaff}	, now()						, #{updateIp}				, #{remark})
 
 	</insert>
 	
@@ -46,13 +46,13 @@
 		, close_date		, daily_room_sales_cnt		, daily_sales_target		, daily_sales_actual
 		, room_sales		, room_price				, restaurant_sales			, etc_sales
 		, month_sales		, input_staff				, input_datetime			, input_ip
-		, update_staff		, update_datetime			, update_ip)
+		, update_staff		, update_datetime			, update_ip					, remark)
 		SELECT
 		#{logDiv}
 		, close_date		, daily_room_sales_cnt		, daily_sales_target		, daily_sales_actual
 		, room_sales		, room_price				, restaurant_sales			, etc_sales
 		, month_sales		, input_staff				, now()						, input_ip
-		, update_staff		, now()						, update_ip
+		, update_staff		, now()						, update_ip					, remark
 		FROM daily_report
 		WHERE close_date 		= #{closeDate}
 	

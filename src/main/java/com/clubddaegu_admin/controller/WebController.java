@@ -37,7 +37,7 @@ public class WebController {
 	public String login(@RequestParam(required = false) String error, HttpServletRequest request, Model model)
 				throws IOException {
 		String userId = "", userPw = "";
-		
+	
 		if (null != error) {
 			Exception exception = (Exception) request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
 			if (exception instanceof LockedException || exception instanceof BadCredentialsException) {
@@ -52,7 +52,7 @@ public class WebController {
 			model.addAttribute("userId", userId);
 			model.addAttribute("userPw", userPw);
 		}
-		
+				
 		return "/login";
 	}
 	

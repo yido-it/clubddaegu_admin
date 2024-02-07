@@ -65,7 +65,7 @@
 								<div class="row reportRow">
 									<div class="col-3 reportTitle">비고</div>
 									<div class="col-9 reportContent">
-										<textarea rows="5" class="form-control" id="remark2"></textarea>
+										<textarea rows="5" class="form-control" id="remark"></textarea>
 									</div>
 								</div>	
 							</div>
@@ -175,6 +175,7 @@ function initDailyReportTable(reportData, yearReport, mPlanData, yPlanData) {
 		$('#roomSales').val(setCountCell(reportData.roomSales));
 		$('#restaurantSales').val(setCountCell(reportData.restaurantSales));
 		$('#etcSales').val(setCountCell(reportData.etcSales));
+		$('#remark').val(reportData.remark);
 	
 		if (reportData.closeYn == 'Y') {
 
@@ -229,6 +230,7 @@ function initDailyReportTable(reportData, yearReport, mPlanData, yPlanData) {
 		$('#roomSales').val("");
 		$('#restaurantSales').val("");
 		$('#etcSales').val("");
+		$('#remark').val("");
 		
    		$('#btnClose').show();
    		$('#btnCancel').hide();
@@ -305,10 +307,11 @@ function insertDailyReport() {
 	var roomSales = setReplaceAll($('#roomSales').val());
 	var restaurantSales = setReplaceAll($('#restaurantSales').val());
 	var etcSales = setReplaceAll($('#etcSales').val());
-	   
+	var remark = $('#remark').val();
+	
 	if (closeDate == "" || dailyRoomSalesCnt == "" || dailySalesTarget == "" || dailySalesActual == "" 
 			|| roomSales == "" || restaurantSales == "" || etcSales == "") {
-		alert('모든 항목을 다 입력해 주세요.');
+		alert('비고를 제외한 모든 항목을 다 입력해 주세요.');
 		return false;
 	}
 	
@@ -326,6 +329,7 @@ function insertDailyReport() {
 	        	, roomSales : roomSales
 	        	, restaurantSales : restaurantSales
 	        	, etcSales : etcSales
+	        	, remark : remark
 	        },
 	        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
 	        success: function(data) {

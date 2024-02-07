@@ -22,6 +22,7 @@ public class DailyReport {
 	private long restaurantSales;		// 식음매출
 	private long etcSales;				// 기타매출
 	private long monthSales;			// 당월실적
+	private String remark;				// 비고
 	private String inputStaff;		
 	private String inputDatetime;		
 	private String inputIp;	

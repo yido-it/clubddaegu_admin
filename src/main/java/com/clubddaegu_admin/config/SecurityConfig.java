@@ -81,6 +81,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMeParameter("rememberMe")
                 .tokenValiditySeconds(86400 * 30)
                 .userDetailsService(adminUserDetailsService)
+                .authenticationSuccessHandler(myAuthenticationSuccessHandler())	// 자동로그인 안 되서 추가함
                 .and()
                 .logout()
                 .logoutUrl("/logout")

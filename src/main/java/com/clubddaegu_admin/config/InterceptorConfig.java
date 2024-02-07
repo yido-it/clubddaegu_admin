@@ -54,12 +54,10 @@ public class InterceptorConfig extends HandlerInterceptorAdapter {
 		Boolean loginYn = false;
 		
 		// 세션에 로그인 정보 있음
-		log.debug("==user:" + user);
 		if(user != null) {				
 			loginYn = true;
 		}
 
-		log.debug("==loginYn:" +loginYn);
 		if(!loginYn) {
 			res.sendRedirect("/succ-logout");
 			return false;

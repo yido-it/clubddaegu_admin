@@ -16,7 +16,7 @@
 			<form id="form-login" action="/checkLogin" method="post" novalidate="novalidate" >              
                 <div class="form-group form-group-default" style="padding:10px 20px 5px 20px;">
 					<label class="mt-1">I&nbsp;D&nbsp;</label>
-					<input type="text" name="userId" id="id" placeholder="" class="form-control" required="" aria-required="true" value="${userId}">
+					<input type="text" name="userId" id="userId" placeholder="" class="form-control" required="" aria-required="true" value="${userId}">
 				</div>
 				<div class="form-group form-group-default"  style="padding:10px 20px 5px 20px;">
 					<label class="mt-1">PW</label>
