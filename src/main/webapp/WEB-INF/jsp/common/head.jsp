@@ -26,6 +26,7 @@
 <meta name="theme-color" content="#ffffff">
 
 <!--폰트 아이콘-->
+<link href="https://cdn.jsdelivr.net/gh/sun-typeface/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
 <link rel="stylesheet" href="/fontawesome/css/all.css">
 <link rel="stylesheet" href="/fontawesome/css/all.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> 

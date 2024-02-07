@@ -6,10 +6,6 @@
 <html>
 <jsp:include page="common/head.jsp" />
 <style>
-.reportTitle {background-color:#80808026;padding-top:5px;border-bottom:1px solid #80808085;text-align:center}
-.reportContent {padding-top:5px;border-bottom:1px solid #80808085}
-.reportRow {height: 40px;}
-.content { width:70%; display:flex; }
 .reportContent input {text-align:right}
 </style>
 <body class="fixed-header desktop">  
@@ -21,49 +17,48 @@
 		<div class="container-fluid">
 			<div class="content">
 				<div class="main_list">
-				
 					<div class="row">
 					    <div class="col-md-12">
-							<span class="span_title  fl">일매출리포트 &nbsp;</span>
-							<input class="form-control fl" type="date" id="searchDt" style="width:200px;">
+							<span class="span_title fl">일매출리포트 &nbsp;</span>
+							<input class="form-control fl text-center m-0" type="date" id="searchDt" style="width: 200px;">
 						</div>
 					</div>
 						
-					<div style="padding-left:15px">
+					<div>
 						<div class="row mt-3" id="reportTable">
-							<div class="col-12">
+							<div class="col-7">
 								<div class="row reportRow" style="border-top : 1px solid #80808085;">
-									<div class="col-3 reportTitle">마감일자</div>
-									<div class="col-3 reportContent"><span id="closeDate" style="padding-left:10px"></span></div>
+									<div class="col-3 reportTitle"><p>마감일자</p></div>
+									<div class="col-3 reportContent text-center"><p id="closeDate"></p></div>
 									
-									<div class="col-3 reportTitle">일 판매객실수</div>
+									<div class="col-3 reportTitle"><p>일 판매객실수</p></div>
 									<div class="col-3 reportContent"><input type="text" id="dailyRoomSalesCnt" onkeyup="setAddComma(this)"></div>
 									
 								</div>
 								<div class="row reportRow">
-									<div class="col-3 reportTitle">당일 매출액 목표</div>
+									<div class="col-3 reportTitle"><p>당일 매출액 목표</p></div>
 									<div class="col-3 reportContent"><input type="text" id="dailySalesTarget" onkeyup="setAddComma(this)"></div>
 									
-									<div class="col-3 reportTitle">당일 매출액 실적</div>
+									<div class="col-3 reportTitle"><p>당일 매출액 실적</p></div>
 									<div class="col-3 reportContent"><input type="text" id="dailySalesActual" onkeyup="setAddComma(this)"></div>
 								</div>
 								<div class="row reportRow">
-									<div class="col-3 reportTitle">객실매출</div>
+									<div class="col-3 reportTitle"><p>객실매출</p></div>
 									<div class="col-3 reportContent"><input type="text" id="roomSales" onkeyup="setAddComma(this)"></div>
 									
-									<div class="col-3 reportTitle">식음매출</div>
+									<div class="col-3 reportTitle"><p>식음매출</p></div>
 									<div class="col-3 reportContent"><input type="text" id="restaurantSales" onkeyup="setAddComma(this)"></div>
 								</div>
 								<div class="row reportRow">
-									<div class="col-3 reportTitle">기타매출</div>
+									<div class="col-3 reportTitle"><p>기타매출</p></div>
 									<div class="col-3 reportContent"><input type="text" id="etcSales" onkeyup="setAddComma(this)"></div>
 									
-									<div class="col-3 reportTitle"></div>
-									<div class="col-3 reportContent"></div>
+									<div class="col-3 reportTitle none-data"></div>
+									<div class="col-3 reportContent none-data"></div>
 								</div>	
 								
 								<div class="row reportRow">
-									<div class="col-3 reportTitle">비고</div>
+									<div class="col-3 reportTitle"><p>비고</p></div>
 									<div class="col-9 reportContent">
 										<textarea rows="5" class="form-control" id="remark"></textarea>
 									</div>
@@ -72,8 +67,8 @@
 						</div>	
 						
 						<div class="row mt-3">
-							<div class="col-md-7"></div>
-							<div class="col-md-5">
+							<!-- <div class="col-md-7"></div> -->
+							<div class="col-7 btn-box">
 								<button type="button" class="btn_admin btn_send" id="btnCloseSms" data-toggle="modal" data-target="#closeSmsModal" data-whatever="@mdo" style="float:right;width:120px">
 									마감문자
 								</button>

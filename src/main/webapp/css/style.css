@@ -1,55 +1,5 @@
-@import url(https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/stylesheets/NotoSansKR-Hestia.css);
-@import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
-
-/*에스코어드림*/
-@font-face {
-	font-family: 'S-Core';
-	font-weight: 400;
-	src:
-		url('../fonts/S-Core/S-CoreDream-4Regular.woff2') format('woff2'),
-		url('../fonts/S-Core/S-CoreDream-4Regular.woff') format('woff'),
-		url('../fonts/S-Core/S-CoreDream-4Regular.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'S-Core';
-	font-weight: 500;
-	src:
-		url('../fonts/S-Core/S-CoreDream-5Medium.woff2') format('woff2'),
-		url('../fonts/S-Core/S-CoreDream-5Medium.woff') format('woff'),
-		url('../fonts/S-Core/S-CoreDream-5Medium.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'S-Core';
-	font-weight: 600;
-	src:
-		url('../fonts/S-Core/S-CoreDream-6Bold.woff2') format('woff2'),
-		url('../fonts/S-Core/S-CoreDream-6Bold.woff') format('woff'),
-		url('../fonts/S-Core/S-CoreDream-6Bold.ttf') format('truetype');
-}
-
-@font-face {
-	font-family: 'S-Core';
-	font-weight: 700;
-	src:
-		url('../fonts/S-Core/S-CoreDream-7ExtraBold.woff2') format('woff2'),
-		url('../fonts/S-Core/S-CoreDream-7ExtraBold.woff') format('woff'),
-		url('../fonts/S-Core/S-CoreDream-7ExtraBold.ttf') format('truetype');
-}
-
-/*Eurostile-ExtendedTwo*/
-@font-face {
-	font-family: 'Eurostile-ExtendedTwo';
-	font-style: normal;
-	font-weight: normal;
-	src:
-		url('../fonts/oasis/Eurostile-ExtendedTwo.woff'),
-		url('../fonts/oasis/Eurostile-ExtendedTwo.woff') format('truetype');
-}
-
 body {
-	font-family: 'Noto Sans KR', 'Noto Sans Korean', Malgun Gothic, "맑은고딕", arial, sans-serif;
+	font-family: 'SUIT', arial, sans-serif;
 	font-size: 17px;
 	color: #555;
 	overflow-x: clip;
@@ -302,20 +252,6 @@ html {
 	scroll-behavior: smooth;
 }
 
-p,
-span,
-th,
-td,
-dd,
-a,
-li,
-label,
-button {
-	font-family: 'Noto Sans KR', 'Noto Sans Korean', Malgun Gothic, "맑은고딕", arial, sans-serif;
-	font-size: 16px;
-	word-break: keep-all;
-}
-
 .bold {
 	font-weight: bold;
 }
@@ -344,7 +280,6 @@ a {
 }
 
 a:hover {
-	color: #eedfbd;
 	text-decoration: none;
 }
 
@@ -399,7 +334,9 @@ span {
 .textshadow {
 	text-shadow: 6px 1px 5px #333;
 }
-
+i.fa-solid.fa-power-off {
+    font-size: 21px;
+}
 .letter-1 {
 	letter-spacing: -1px;
 }
@@ -1360,19 +1297,19 @@ span {
 }
 
 .flatpickr-day.selected {
-	background-color: #f26121 !important;
+	background-color: #00263e !important;
 }
 
 .flatpickr-weekdays {
 	width: 100% !important;
-	background: #f26121 !important;
+	background: #00263e !important;
 	height: 45px !important;
 }
 
 .flatpickr-weekday {
 	color: white !important;
 	font-size: 15px !important;
-	background: #f26121 !important;
+	background: #00263e!important;
 }
 
 .flatpickr-calendar.inline,
@@ -1387,12 +1324,6 @@ span {
 .flatpickr-days {
 	width: 100% !important;
 	font-size: 15px;
-}
-
-span.flatpickr-day {
-	max-width: 79px !important;
-	height: 49px;
-	line-height: 46px;
 }
 
 .dayContainer {
@@ -1413,24 +1344,31 @@ span.flatpickr-day {
 	background-color: #9984bf !important;
 	color: white
 }
-
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+    background-color: #fff !important;
+    outline: none;
+    padding: 0;
+    color: #2c2c2c !important;
+}
 .flatpickr-months .flatpickr-month,
 .flatpickr-current-month .flatpickr-monthDropdown-months {
 	background: #464646;
 	color: white
 }
-
+.flatpickr-months .flatpickr-prev-month:hover svg, .flatpickr-months .flatpickr-next-month:hover svg {
+    fill: #fff !important;
+}
 .flatpickr-current-month input.cur-year[disabled],
 .flatpickr-current-month input.cur-year[disabled]:hover {
 	color: white !important
 }
 
 .flatpickr-months .flatpickr-month {
-	background: #f16020 !important
+	background: #00263e !important
 }
 
 .flatpickr-current-month .flatpickr-monthDropdown-months {
-	background: #f16020 !important
+	background: #00263e !important
 }
 
 .flatpickr-weekdays .flatpickr-weekdaycontainer {
@@ -1782,8 +1720,12 @@ background-repeat: no-repeat ;}
 	-o-transition: all 1.4s ease;
 	transition: all 1.4s ease;
 }
+input, select {
+    text-align: right;
+    margin: 0px 10px;
+}
 
-input {
+/* input {
 	font-family: s-core;
 	border: none;
 	background: #fff;
@@ -1801,7 +1743,7 @@ input {
 	display: block;
 	position: relative;
 	z-index: 9;
-}
+} */
 
 input::-webkit-input-placeholder {
 	color: #666;
@@ -1886,12 +1828,32 @@ input:disabled {
 	height: 38px;
 	margin-left: 7px;
 	border-radius: 5px;
-	background-color: #f26121;
-	border: 1px solid #f26121;
-	color:#ffffff;
+	background-color: #00263e;
+	border: 1px solid #00263e;
+	color: #fff;
 	padding: 4px 12px;
 }
-
+.main_list {
+	padding: 1rem 3rem;
+}
+.reportTitle {
+    background-color: #80808026;
+    border-bottom: 1px solid #80808085;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.reportContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #80808085;
+}
+.form-control {
+    margin: 10px;
+}
 
 /*가져온 스크립트 css*/
 
@@ -1929,27 +1891,6 @@ input:disabled {
 }
 
 /*달력*/
-.flatpickr-day.selected,
-.flatpickr-day.startRange,
-.flatpickr-day.endRange,
-.flatpickr-day.selected.inRange,
-.flatpickr-day.startRange.inRange,
-.flatpickr-day.endRange.inRange,
-.flatpickr-day.selected:focus,
-.flatpickr-day.startRange:focus,
-.flatpickr-day.endRange:focus,
-.flatpickr-day.selected:hover,
-.flatpickr-day.startRange:hover,
-.flatpickr-day.endRange:hover,
-.flatpickr-day.selected.prevMonthDay,
-.flatpickr-day.startRange.prevMonthDay,
-.flatpickr-day.endRange.prevMonthDay,
-.flatpickr-day.selected.nextMonthDay,
-.flatpickr-day.startRange.nextMonthDay,
-.flatpickr-day.endRange.nextMonthDay {
-	background-color: #ff7600 !important
-}
-
 .month_pick {
 	width: inherit
 }
@@ -2066,10 +2007,70 @@ input:disabled {
 
 } 
  
-/***********************************모바일480*************************************/
+/*********************************** dy 모바일480 *************************************/
 @media screen and  (max-width: 481px) {
+	input#rememberMe {
+	    width: auto !important;
+	}
+	input:-webkit-autofill {
+	    width: 100% !important;
+	    margin-right: 0;
+	}
+	input#userId, input#password {
+	    border: 1px solid;
+	    border: 1px solid #ced4da;
+	    width: 100% !important;
+	    margin: 0 0 10px !important;
+	    text-align: left;
+	}
+	.main_list {
+	    padding: 1rem 0rem;
+	}
+	div#reportTable .col-7 {
+	    max-width: 100% !important;
+	    flex: 100;
+	}
+	div#reportTable .col-7 .reportRow:last-child .col-3 {
+	    flex: 0 0 100%;
+	    max-width: 100%;
+	}
+	div#reportTable .col-9.reportContent {
+	    max-width: 100%;
+	    flex: 0 0 100%;
+	}
+	.row.reportRow .col-3.reportContent {
+	    max-width: 60%;
+	    flex: 0 0 60%;
+	}
+	.row.reportRow .col-3.reportTitle {
+	    max-width: 40%;
+	    flex: 0 0 40%;
+	}
+	input {
+		margin: 0px 10px;
+		margin-left: 10px !important;		
+    	width: 100% !important;
+	}
+	input#searchDt {
+    	margin-top: 10px !important;
+	}
+	.col-3.reportTitle.none-data,
+	.col-3.reportContent.none-data {
+	    display: none;
+	}
+	.col-7.btn-box {
+	    max-width: 100%;
+	    flex: 0 0 100%;
+	    text-align: center;
+	}
+	.col-7.btn-box button {
+	    float: none !important;
+	}
+	
+
+	
 .main_videowrap{display:block}
-/*메뉴 시설*/
+/*메뉴 시설
 .ul_menu li{border-radius:0; width:48.2%;margin-left:0;margin-right:2px;margin-top:2px}
 .ul_menu li:first-child{margin-left:0}
 .div_food h4{font-size:18px}
@@ -2121,7 +2122,7 @@ input:disabled {
 	.sort_wrap .btn_type{height: 32px;line-height: 10px;}
 	.txt_grand h3{font-size:2.7rem;min-width: 480px;}
 	.txt_grand i{font-size:2.5rem;}
-	p, li, th, td, dd {font-size:13px ;line-height: 1.5rem !important;}
+	p, li, th, td, dd {font-size:14px ;line-height: 1.5rem !important;}
 	.table td, .table th {padding: 1rem 6px !important;}
 	 
 	.row {padding: 0 15px;}
@@ -2157,7 +2158,6 @@ input:disabled {
 	.mainbox_right{float:right;width:100%}
 	.table td, .table th {font-size:12px;}
 	
-	.intro .intro-title{font-family:'Eurostile-ExtendedTwo','Noto Sans KR', 'Noto Sans Korean', Malgun Gothic, "맑은고딕", arial, sans-serif;
 	font-size: 1.1rem; line-height: 27px;word-break: keep-all;}
 	
 	
@@ -2298,7 +2298,8 @@ input:disabled {
 	.flatpickr-day.selected.prevMonthDay, .flatpickr-day.startRange.prevMonthDay, 
 	.flatpickr-day.endRange.prevMonthDay, .flatpickr-day.selected.nextMonthDay, 
 	.flatpickr-day.startRange.nextMonthDay, .flatpickr-day.endRange.nextMonthDay {
-		background-color: #ff7600 !important
+		background-color: #00263e !important;
+		border-color: #00263e !important;
 	}
 	.month_pick{width:inherit}
 	
@@ -2351,8 +2352,8 @@ input:disabled {
 }
 input[type="checkbox"] {
   /*   position: absolute; */
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     padding: 0;
     overflow: hidden;
     border: 0;

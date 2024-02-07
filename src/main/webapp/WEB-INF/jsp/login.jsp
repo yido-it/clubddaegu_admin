@@ -22,9 +22,9 @@
 					<label class="mt-1">PW</label>
 					<input type="password" class="form-control" name="password" id="password" placeholder="" required="" aria-required="true" value="${userPw}">
 				</div>
-				<div class="form-check icon-check mt-3 pl-1" style="display:flex;">
+				<div class="form-check icon-check mt-3 pl-1">
                        <input class="" type="checkbox" name="rememberMe" id="rememberMe">
-                       <label class="" for="rememberMe" style="padding-left: 10px;font-size:18px;">자동로그인</label>
+                       <label class="" for="rememberMe" style="font-size:18px;">자동로그인</label>
                    </div>
 				<div class="row">
 					<div class="col-12">

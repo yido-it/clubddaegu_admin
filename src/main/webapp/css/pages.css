@@ -1,62 +1,38 @@
-@font-face {
-     font-family: 'Nanum Gothic';
-     font-style: normal;
-     src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.eot);
-     src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'), url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.woff2) format('woff2'), url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.woff) format('woff'), url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.ttf) format('truetype');
+  html {
+     height: 100% 
 }
- @font-face {
-     font-family: 'Nanum Gothic';
-     font-style: normal;
-     font-weight: 700;
-     src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.eot);
-     src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.eot?#iefix) format('embedded-opentype'), url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.woff2) format('x-woff2'), url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.woff) format('woff'), url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Bold.ttf) format('truetype');
+ body {
+     font-family: 'SUIT', sans-serif, arial, sans-serif;
+     height: 100%;
+     margin: 0;
+     padding: 0;
+     background-color: #fafafa;
+     direction: ltr;
+     -moz-osx-font-smoothing: grayscale 
 }
- @font-face {
-     font-family: 'Nanum Gothic';
-     font-style: normal;
-     font-weight: 400;
-     src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.eot);
-     src: url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.eot?#iefix) format('embedded-opentype'), url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.woff2) format('x-woff2'), url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.woff) format('woff'), url(//themes.googleusercontent.com/static/fonts/earlyaccess/nanumgothic/v3/NanumGothic-Regular.ttf) format('truetype');
+ body.fixed-header .header {
+     position: fixed;
+     left: 0;
+     top: 0;
+     background: #ddd;
 }
- @import url(https://cdn.rawgit.com/theeluwin/NotoSansKR-Hestia/master/stylesheets/NotoSansKR-Hestia.css) ;
- @import url(https://fonts.googleapis.com/earlyaccess/notosanskr.css);
- @font-face {
-     font-family: 'Noto Sans KR';
-     font-style: normal;
-     font-weight: 100;
-     src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Thin.otf) format('opentype');
+ body.no-header .page-container .page-content-wrapper .content {
+     padding-top: 0 
 }
- @font-face {
-     font-family: 'Noto Sans KR';
-     font-style: normal;
-     font-weight: 300;
-     src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Light.otf) format('opentype');
+ body.no-header .header {
+     border-bottom-color: transparent 
 }
- @font-face {
-     font-family: 'Noto Sans KR';
-     font-style: normal;
-     font-weight: 400;
-     src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Regular.otf) format('opentype');
+ body.rtl [class^=col-], body.rtl [class*=col-] {
+     float: left 
 }
- @font-face {
-     font-family: 'Noto Sans KR';
-     font-style: normal;
-     font-weight: 500;
-     src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Medium.otf) format('opentype');
+ body.menu-pin .overlay {
+     padding-left: 0 
 }
- @font-face {
-     font-family: 'Noto Sans KR';
-     font-style: normal;
-     font-weight: 700;
-     src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Bold.otf) format('opentype');
+ body.menu-pin .overlay .overlay-brand {
+     margin-left: 0 
 }
- @font-face {
-     font-family: 'Noto Sans KR';
-     font-style: normal;
-     font-weight: 900;
-     src: url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff2) format('woff2'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.woff) format('woff'), url(//fonts.gstatic.com/ea/notosanskr/v2/NotoSansKR-Black.otf) format('opentype');
-}
- .flex-row {
+
+.flex-row {
      -webkit-box-orient: horizontal;
      -webkit-box-direction: normal;
      -webkit-flex-direction: row;
@@ -91,39 +67,7 @@
      height: 40px;
      left: 0;
 }
- html {
-     height: 100% 
-}
- body {
-     font-family: 'Roboto', Apple SD Gothic Neo, sans-serif, arial, sans-serif;
-     height: 100%;
-     margin: 0;
-     padding: 0;
-     background-color: #fafafa;
-     direction: ltr;
-     -moz-osx-font-smoothing: grayscale 
-}
- body.fixed-header .header {
-     position: fixed;
-     left: 0;
-     top: 0;
-     background: #efdcbc;
-}
- body.no-header .page-container .page-content-wrapper .content {
-     padding-top: 0 
-}
- body.no-header .header {
-     border-bottom-color: transparent 
-}
- body.rtl [class^=col-], body.rtl [class*=col-] {
-     float: left 
-}
- body.menu-pin .overlay {
-     padding-left: 0 
-}
- body.menu-pin .overlay .overlay-brand {
-     margin-left: 0 
-}
+
  .page-container {
      width: 100%;
      padding-left: 10px 
@@ -1448,7 +1392,6 @@
      left: -220px;
      position: fixed;
      bottom: 0;
-     border-right: 2px solid #c5ad8f;
      top: 0;
      right: auto;
      overflow: hidden;
@@ -1459,18 +1402,8 @@
      -webkit-backface-visibility: hidden;
      -webkit-perspective: 1000 
 }
- .page-sidebar a, .page-sidebar button {
-     color: #788195 
-}
- .page-sidebar a:hover, .page-sidebar button:hover, .page-sidebar a:active, .page-sidebar button:active {
-     color: #fff;
-     background-color: transparent !important 
-}
  .page-sidebar a:hover:focus, .page-sidebar button:hover:focus, .page-sidebar a:active:focus, .page-sidebar button:active:focus {
      color: #fff 
-}
- .page-sidebar a:visited, .page-sidebar button:visited, .page-sidebar a:focus, .page-sidebar button:focus {
-     color: #b9b9b9;
 }
  .page-sidebar button.sidebar-slide-toggle.active {
      color: #788195 
@@ -1487,7 +1420,8 @@
      line-height: 60px;
      background-color: white;
      border-bottom: 1px solid #eedfbd;
-     color: #fff;
+     color: #00263e;
+	 font-weight: bold;
      width: 100%;
      padding: 0 20px;
      padding-left: 30px;
@@ -1539,13 +1473,12 @@
      -ms-transform: translate(0, 100%);
      transform: translate(0, 100%) 
 }
- .page-sidebar .sidebar-menu {
+/*  .page-sidebar .sidebar-menu {
      height: calc(100% - 50px);
      position: relative;
      width: 100%;
-     background: url(/img/main/illust.png) no-repeat 55% 50%;
      background-size: cover;
-}
+} */
  .page-sidebar .sidebar-menu .outer-tab-nav-section {
      display: inline-block;
      width: 45px;
@@ -1563,12 +1496,7 @@
      height: calc(90% - 40px);
      width: 100% 
 }
- .page-sidebar .sidebar-menu .menu-items li:hover>.icon-thumbnail, .page-sidebar .sidebar-menu .menu-items li.open>.icon-thumbnail, .page-sidebar .sidebar-menu .menu-items li.active>.icon-thumbnail {
-     color: #5d2b00 
-}
- .page-sidebar .sidebar-menu .menu-items li:hover>a, .page-sidebar .sidebar-menu .menu-items li.open>a, .page-sidebar .sidebar-menu .menu-items li.active>a {
-     color: #5d2b00 
-}
+
  .page-sidebar .sidebar-menu .menu-items li>a {
      white-space: nowrap;
      overflow: hidden;
@@ -1586,19 +1514,15 @@
      content: " ";
      clear: both 
 }
- .page-sidebar .sidebar-menu .menu-items>li>a {
-     display: inline-block;
-     padding-left: 20px;
-     min-height: 40px;
-     line-height: 40px;
-     font-size: 14px;
-     clear: both 
+.page-sidebar .sidebar-menu .menu-items>li>a {
+    padding-left: 30px;
+    min-height: 30px;
+    line-height: 30px;
 }
  .page-sidebar .sidebar-menu .menu-items>li>a.open {
      background: #313131 
 }
  .page-sidebar .sidebar-menu .menu-items>li>a>.arrow {
-     color: #5d2b00;
      float: right;
      padding-right: 16px 
 }
@@ -1612,7 +1536,8 @@
      font-weight: 300;
      text-shadow: none;
      -webkit-transition: all .12s ease;
-     transition: all .12s ease 
+     transition: all .12s ease;
+     color: #fff;
 }
  .page-sidebar .sidebar-menu .menu-items>li>a>.arrow.open:before {
      -webkit-transform: rotate(-90deg);
@@ -1623,14 +1548,8 @@
      margin-top: 12px 
 }
  .page-sidebar .sidebar-menu .menu-items>li>a>.title {
-     float: left;
-     white-space: nowrap;
-     text-overflow: ellipsis;
-     overflow: hidden;
-     letter-spacing: -1.4px;
-     width: 85%;
-     font-size: 21px;
-     color: #5d2b00;
+	font-size: 17px;
+    color: #fff;
 }
  .page-sidebar .sidebar-menu .menu-items>li>a>.details {
      font-size: 12px;
@@ -1688,19 +1607,16 @@
      font-weight: 300;
      text-shadow: none 
 }
- .page-sidebar .sidebar-menu .menu-items>li ul.sub-menu {
-     display: none;
-     list-style: none;
-     clear: both;
-     margin: 16px 0;
-     background-color: #f7f1e2;
-     padding: 8px 0 5px;
-     border-bottom: 1px solid #f7f1e2;
+.page-sidebar .sidebar-menu .menu-items>li ul.sub-menu {
+    display: none;
+    list-style: none;
+    clear: both;
+    margin: 16px 0;
+    background-color: #363f53;
+    padding: 8px 0 5px;
 }
  .page-sidebar .sidebar-menu .menu-items>li ul.sub-menu>li {
-     background: 0 0;
      padding: 10px 10px 10px 30px;
-     margin-top: 1px 
 }
  .page-sidebar .sidebar-menu .menu-items>li ul.sub-menu>li.nav_scroll_pd {
      padding: 0 10px 0 30px;
@@ -1709,18 +1625,9 @@
      height: 250px;
      overflow-y: scroll;
 }
- .page-sidebar .sidebar-menu .menu-items>li ul.sub-menu>li:hover>.icon-thumbnail {
-     color: #5d2b00 
-}
+
  .page-sidebar .sidebar-menu .menu-items>li ul.sub-menu>li>a {
-     display: inline-block;
-     padding: 1px 0;
-     font-size: 20px;
-     color: #5d2b00;
-     white-space: normal 
-}
- .page-sidebar .sidebar-menu .menu-items>li ul.sub-menu>li>a:hover {
-     color: #5d2b00 
+     color: #fff;
 }
  .page-sidebar .sidebar-menu .menu-items>li ul.sub-menu>li .icon-thumbnail {
      width: 30px;
@@ -2072,10 +1979,7 @@
      padding: 0 5px;
      font-size: 14px 
 }
- .quickview-wrapper .nav-tabs ~ .tab-content .quickview-notes .list .toolbar ul>li a:hover, .quickview-wrapper .nav-tabs ~ .tab-content .quickview-notes .list .toolbar ul>li a.selected {
-     background: #968974;
-     color: #fbf9e3 
-}
+
  .quickview-wrapper .nav-tabs ~ .tab-content .quickview-notes .list .toolbar .btn-remove-notes {
      background: 0 0;
      bottom: 8px;
@@ -2130,9 +2034,7 @@
  .quickview-wrapper .nav-tabs ~ .tab-content .quickview-notes .list>ul li .right .date {
      margin-right: 10px 
 }
- .quickview-wrapper .nav-tabs ~ .tab-content .quickview-notes .list>ul li:hover {
-     background: #f4ecd1 
-}
+
  .quickview-wrapper .nav-tabs ~ .tab-content .quickview-notes .note {
      background-image: url(../img/notes_lines.png);
      background-repeat: repeat-y;
@@ -2165,9 +2067,7 @@
      display: block;
      font-size: 14px 
 }
- .quickview-wrapper .nav-tabs ~ .tab-content .quickview-notes .note .toolbar>li>a:hover {
-     background: #fffaf6 
-}
+
  .quickview-wrapper .nav-tabs ~ .tab-content .quickview-notes .note .toolbar>li>a.active {
      color: #333;
      background: #f9f1ea 
@@ -2412,16 +2312,7 @@
  code:hover {
      background-color: #fddddd 
 }
- p {
-     display: block;
-     font-size: 14px;
-     font-weight: 400;
-     letter-spacing: .01em;
-     line-height: 22px;
-     margin: 0 0 10px;
-     font-style: normal;
-     white-space: normal 
-}
+
  small, .small {
      line-height: 18px;
      font-size: 85% 
@@ -2890,10 +2781,8 @@
          line-height: 17px 
     }
 }
- .windows body, .windows p {
-    /* font-size: 12px;
-     */
-     letter-spacing: normal 
+ p {
+    margin-bottom: 0 !important;
 }
  .windows h3 {
      font-size: 20px;

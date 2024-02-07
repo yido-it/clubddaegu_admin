@@ -35,7 +35,7 @@
 	<div class=""> 
 		<div class="inline" style="width:230px;">
             <div class="nav-link side_open fl close" style="cursor:pointer;margin-left:20px;margin-top:5px;" >
-            	 <i class="fs16 fas fa-stream" style="color:#f26121;font-size:27px!important;font-weight: bold;"></i>
+            	 <i class="fas fa-stream"></i>
            	</div> 
 		</div>
 	</div> 
@@ -45,10 +45,8 @@
 		</div>
 	</div>
 	<div>
-
-			
 		<a href="/logout">
-			<i class="fa-solid fa-power-off" style="color: #f26121;font-size: 27px!important;font-weight: bold;margin-right:10px;"></i>
+			<i class="fa-solid fa-power-off"></i>
 		</a>
 	</div>
 </div>
@@ -64,11 +62,7 @@
 			<div class="col-xs-6 m-t-20 no-padding"></div>
 		</div>
 	</div>
-	<div class="sidebar-header" style="text-align: center;">
-		<a href="/">
-			<img src="/img/logo_top.png" alt="logo" class="" style="margin:5px;height: 85%;">
-		</a>
-	</div>
+	<div class="sidebar-header" style="text-align: center;"><p>클럽디 대구 메리어트</div>
 	<div class="sidebar-menu">
 		<div class="user-panel">
 			<div class="pull-left image">
@@ -79,7 +73,7 @@
 			<c:if test="${sessionScope.session.userAuth == 'ATH100' || sessionScope.session.userAuth == 'ATH200' || sessionScope.session.userAuth == 'ATH300' || sessionScope.session.userAuth == 'ATH400' || sessionScope.session.userAuth == 'ATH600'}">	 
 			<li>
 	        	<a href="/report/dailySales">
-	            	<span class="title">일매출리포트</span>
+	            	<span class="title">일 매출 리포트</span>
 	            </a>
 	        </li>
 	        </c:if>
@@ -88,17 +82,17 @@
             <c:if test="${sessionScope.session.userAuth == 'ATH100' || sessionScope.session.userAuth == 'ATH200' }">
             <li>
                 <a href="#">
-                    <span class="title">시스템관리</span>
+                    <span class="title">시스템 관리</span>
                     <span class="arrow"></span>
                 </a>
                 <ul class="sub-menu">
                 	<c:if test="${sessionScope.session.userAuth == 'ATH100'}">
                     <li class="nav-item" id="">
-                        <a href="/sys/adminUser">관리자관리</a>
+                        <a href="/sys/adminUser">- 관리자 관리</a>
                     </li>
                     </c:if>
                     <li class="nav-item" id="">
-                        <a href="/sys/adminSms">관리자수신관리</a>
+                        <a href="/sys/adminSms">- 관리자 수신 관리</a>
                     </li>
            
                 </ul>
