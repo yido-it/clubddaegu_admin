@@ -30,11 +30,29 @@
 	}
 </style>
 <script src="/js/jquery.min.js"></script>
-
+<script>
+$(document).ready(function(){
+	// 크기로 구분 
+	if(window.innerWidth <= 768) {
+	    //
+	} else {
+		
+	    // body 에 'menu-pin' class 추가 
+	    $('body').addClass('menu-pin');
+	    
+	    // 'nav-menu' class close -> open 변경 
+	    $('#nav-menu').removeClass('close').addClass('open');
+	    // transform 변경 
+	    $('#nav-menu').css('transform', 'translate3d(210px, 0px, 0px)');
+	    
+	    
+	}
+});
+</script>
 <div class="header"> 
 	<div class=""> 
 		<div class="inline" style="width:230px;">
-            <div class="nav-link side_open fl close" style="cursor:pointer;margin-left:20px;margin-top:5px;" >
+            <div class="nav-link side_open fl close" id="nav-menu" style="cursor:pointer;margin-left:20px;margin-top:5px;" >
             	 <i class="fas fa-stream"></i>
            	</div> 
 		</div>
