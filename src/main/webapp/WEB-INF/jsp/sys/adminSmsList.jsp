@@ -5,100 +5,54 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
 <jsp:include page="../common/head.jsp" />
-<style>
-	.content {
-    	width:70%;
-    	display:flex;
-	}
-	.main_list {
-    	width:800px;
-	}
-	.detail_area {
-    	width:45%;
-    	padding-left: 30px;
-    	padding-top: 40px;
-	}
-
-	#detail_grid {
-		width:100%;
-	}
-	#detail_grid tr th {
-    	padding: 10px;
-	    border-top: 1px solid rgba(0, 0, 0, 0.15);
-	    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-	    border-right: 1px solid rgba(0, 0, 0, 0.3);
-	    font-size: 14px;
-	    background: #EBEBEB;
-	    width: 30%;
-	}
-	#detail_grid tr td {
-	    border-top: 1px solid rgba(0, 0, 0, 0.15);
-	    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-	    border-left: 1px solid rgba(0, 0, 0, 0.3);
-	    font-size: 14px;
-	    width: 70%;
-	}
-	input, select {
-		font-family: "Noto Sans KR", "Noto Sans Korean", Malgun Gothic, "맑은고딕", arial, sans-serif;
-		font-weight: normal;
-		font-size: 14px;
-		margin-left: 5px;
-		width: 80%;
-		padding: 2px 10px;
-		height: 30px;
-		border: 1px solid rgba(0, 0, 0, 0.3);
-		border-radius: 5px;
-	}
-	.btn_green {
-	    background-color: #17a2b8 !important;
-	    border-color: #17a2b8 !important;
-	}
-	.btn_gray {
-	    background-color: #8b8b8b !important;
-	    border-color: #8b8b8b !important;
-	}
-	.cell_input {
-		text-align: center;
-	}
-</style>
 <body class="fixed-header desktop">  
 	<jsp:include page="../common/navigation.jsp" />
-	<!-- 상단 메뉴 -->`
-	<div class="page-container ">
+	<!-- 상단 메뉴 -->
+	<div class="page-container">
 		<div class="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="content">
 					<div class="main_list">
-						<div class="card-title" style="height:35px">
-							<div>
-								<span class="span_title" style="float:left;">관리자 수신 관리&nbsp</span>						
-							</div>
-							<div>
-								<button type="button" class="btn_admin" onclick="addNewRow()" style="float:right;width:120px">
+						<div class="row">
+						    <div class="col-md-12">
+								<span class="span_title fl">관리자 수신 관리 &nbsp;</span>
+								<button type="button" class="btn_admin mt-1" onclick="addNewRow()">
 									<i class="fa-solid fa-plus"></i> 추가
 								</button>
 							</div>
 						</div>
+						<!-- <div>
+							<div class="row mt-3" id="reportTable">
+								<div class="col-7">
+									
+								</div>
+							</div>
+						</div> -->
+						
 						<!-- 테이블 -->
-						<div>					
-							<table id='grid' style='width:100%;height:'>
-								<thead>
-									<tr>    
-							         	<th>순번</th>      	
-							         	<th>이름</th>      	
-							         	<th>전화번호</th>
-							         	<th>사용여부</th>
-							         	<th></th>
-							         	<th></th>
-									</tr>
-						     	</thead>
-							</table>
+						<div>
+							<div class="row mt-3">
+								<div class="col-7">						
+									<table id='grid' style='width:100%;height:'>
+										<thead>
+											<tr>    
+									         	<th>순번</th>      	
+									         	<th>이름</th>      	
+									         	<th>전화번호</th>
+									         	<th>사용여부</th>
+									         	<th></th>
+									         	<th></th>
+											</tr>
+								     	</thead>
+									</table>
+								</div>
+								<!-- hidden area -->
+								<input type="hidden" id="seq"/>
+								<input type="hidden" id="preName"/>
+								<input type="hidden" id="prePhoneNum"/>
+								<input type="hidden" id="preUseyn"/>
+							</div>
 						</div>
-						<!-- hidden area -->
-						<input type="hidden" id="seq"/>
-						<input type="hidden" id="preName"/>
-						<input type="hidden" id="prePhoneNum"/>
-						<input type="hidden" id="preUseyn"/>
 					</div>
 					
 					
@@ -202,10 +156,10 @@
 			{ targets: 4 , createdCell: function(td, cData, rData, row, col) {
 				var html = '';
 				if(rData.cdCode != '') {					
-					html += '<button type="button" class="btn_admin" onclick="modifyUser(' + row+ ')" style="width:100px;height:30px;">';
+					html += '<button type="button" class="btn_admin bg-secondary" onclick="modifyUser(' + row+ ')">';
 					html += '	수정';
 				} else {					
-					html += '<button type="button" class="btn_admin btn_green" onclick="saveUser()" style="width:100px;height:30px;">';
+					html += '<button type="button" class="btn_admin btn_green" onclick="saveUser()">';
 					html += '	저장';
 				}
 				html += '</button>';				
@@ -214,9 +168,9 @@
 			{ targets: 5 , createdCell: function(td, cData, rData, row, col) {
 				var html = '';		
 				if(rData.cdCode != '') {
-					html += '<button type="button" class="btn_admin btn_gray" onclick="deleteUser(' + rData.cdCode + ')" style="width:100px;height:30px;">';
+					html += '<button type="button" class="btn_admin bg-danger" onclick="deleteUser(' + rData.cdCode + ')">';
 				} else {
-					html += '<button type="button" class="btn_admin btn_gray" onclick="deleteUser()" style="width:100px;height:30px;">';					
+					html += '<button type="button" class="btn_admin bg-danger" onclick="deleteUser()">';					
 				}
 					html += '	삭제';
 					html += '</button>';				

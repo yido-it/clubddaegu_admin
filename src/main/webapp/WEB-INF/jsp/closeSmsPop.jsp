@@ -17,16 +17,16 @@
 			<div class="modal-body" style="padding:10px;display:flex;">  		
 				
 				<div class="col-6">
-					<textarea id='smsArea' style='width:100%;height:600px'></textarea>				
+					<textarea id='smsArea' class="p-3" style='width:100%; height:600px'></textarea>				
 				</div>
 				
 				<!-- 수신대상 목록 -->
 				<div class="col-6">
-					<span class="span_title mt-1" style="font-size:20px">마감문자 수신 대상</span>
+					<span class="span_title mt-1 pl-3" style="font-size:20px">마감문자 수신 대상</span>
 					<c:if test="${sessionScope.session.userAuth == 'ATH100' || sessionScope.session.userAuth == 'ATH200' }">
-					<button class="btn_admin" onclick="javascript:location.href='/sys/adminSms'" style="width:100px;float:right;">관리</button>			
+					<button class="btn_admin" onclick="javascript:location.href='/sys/adminSms'" style="float:right;">관리</button>			
 					</c:if>
-					<div class='mt-2 pt-2' style="height:500px;overflow:auto">
+					<div class='mt-2 pl-2'>
 						<table id='smsGrid' style='width:100%;table-layout:fixed;'>
 							<thead>
 								<tr>   
@@ -37,8 +37,8 @@
 					     	</thead>
 						</table>
 					</div>
-					<div class='mt-2 col-12' style='position:absolute;bottom:0px;'>
-						<button class="btn btn-info" id="btnSend" onclick="" style="width:200px;float:right;">전송</button>			
+					<div class='mt-2 col-12'>
+						<button class="btn btn-info btn_admin float-right" id="btnSend" onclick="">전송</button>			
 					</div>
 				</div>
 			

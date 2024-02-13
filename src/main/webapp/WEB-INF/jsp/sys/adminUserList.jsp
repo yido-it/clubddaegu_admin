@@ -6,7 +6,7 @@
 <html>
 <jsp:include page="../common/head.jsp" />
 <style>
-	.content {
+/* 	.content {
     	width:70%;
     	display:flex;
 	}
@@ -55,113 +55,120 @@
 	input[readonly], input[readonly]:focus {
 		border: 0px none;
 		cursor: auto;
-	}
+	} */
 
 </style>
 <body class="fixed-header desktop">  
 	<jsp:include page="../common/navigation.jsp" />
-	<!-- 상단 메뉴 -->`
-	<div class="page-container ">
+	<!-- 상단 메뉴 -->
+	<div class="page-container">
 		<div class="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="content">
 					<div class="main_list">
-						<div class="card-title" style="height:35px">
-							<div>
-								<span class="span_title" style="float:left;">관리자관리&nbsp</span>						
-							</div>
-							<div>
-								<button type="button" class="btn_admin" onclick="addNewRow()" style="float:right;width:120px">
-									<i class="fa-solid fa-plus"></i>추가
+						<div class="row">
+						    <div class="col-md-12">
+								<span class="span_title fl">관리자관리 &nbsp;</span>
+								<button type="button" class="btn_admin mt-1" onclick="addNewRow()">
+									<i class="fa-solid fa-plus"></i> 추가
 								</button>
 							</div>
-						</div>
-						<!-- 내용 -->
-						<div>					
-							<table id="grid">
-								<thead>
-									<tr>
-										<th>아이디</th>
-										<th>이름</th>
-										<th>권한</th>
-										<th>권한명</th>
-										<th>사용여부</th>
-										<th>생성일시</th>
-									</tr>
-								</thead>												
-							</table>
-						</div>
-					</div>
-					<div class="sp_div" style="width:40px"></div>
-					<div class="detail_area" style="display:none;">
-						<div class="card-title" style="width:100%;height:35px;">
-							<div>
-								<span class="span_title" id="detailTitle" style="float:left;">사용자 추가</span>						
+							<!-- <div>
+								<div class="row mt-3" id="reportTable">
+									<div class="col-7">									
+									</div>
+								</div>
+							</div> -->
+							
+							<!-- 내용 -->
+							<div class="col-12">
+								<div class="col-7">		
+									<table id="grid" class="table">
+										<thead>
+											<tr>
+												<th>아이디</th>
+												<th>이름</th>
+												<th>권한</th>
+												<th>권한명</th>
+												<th>사용여부</th>
+												<th>생성일시</th>
+											</tr>
+										</thead>												
+									</table>
+								</div>
 							</div>
-						</div>
-						<!-- 내용 -->
-						<div>					
-							<form id="detailForm" method="post">							
-							<table id="detail_grid" >
-								<tr>
-									<th>아이디</th>
-									<td><input type="text" class="detail_form" name="userId" readonly/></td>
-								</tr>				
-								<tr>
-									<th>비밀번호/변경</th>
-									<td><input type="password" class="detail_form" name="userPw"/></td>
-								</tr>				
-								<tr>
-									<th>이름</th>
-									<td><input type="text" class="detail_form" name="userNm"/></td>
-								</tr>
-								<tr>
-									<th>권한</th>
-									<td>
-										<select class="detail_form" name="userAuth">
-										<option value="">선택하세요</option>
-										<c:forEach items="${cdList}" var="code">
-											<option value="${code.cdCode}">${code.cdTitle1}</option>
-										</c:forEach>
-										</select>
-									</td>
-								</tr>
-								<tr>
-									<th>사용여부</th>
-									<td>
-										<div class="radio" style="display:flex;">
-											<input type="radio" name="useYn" id="useY" value="Y" checked> 
-											<label for="useY"> 사용</label>
-											<input type="radio" name="useYn" id="useN" value="N" >  
-											<label for="useN"> 미사용</label>
-										</div>								
-									</td>
-								</tr>
-								<tr>
-									<th>생성일시</th>
-									<td>
-										<input type="text" name="inputDatetime" readonly/>
-										<input type="text" class="detail_form" name="addYn" value="N" style="display:none;"/>
-									</td>
-								</tr>
-							</table>
-							</form>			
-						</div>
 						
-						<div class="pt-3">
-							<button type="button" class="btn_admin" onclick="deleteUser()" style="float:right;width:120px">
-								삭제
-							</button>
-							<button type="button" class="btn_admin" onclick="saveUser()" style="float:right;width:120px">
-								저장
-							</button>
-						</div>
-						
+						<!-- <div class="sp_div" style="width:40px"></div> -->
+						<div class="detail_area border py-3 px-4 mt-3 col-7" style="display:none;">
+							<div class="card-title mb-4" style="width:100%;">
+								<div>
+									<span class="span_title" id="detailTitle">사용자 추가</span>						
+								</div>
+							</div>
+							<!-- 내용 -->
+							<div>					
+								<form id="detailForm" method="post">							
+								<table id="detail_grid">
+									<tr>
+										<th class="pb-3">아이디</th>
+										<td><input type="text" class="detail_form" name="userId" readonly/></td>
+									</tr>				
+									<tr>
+										<th class="py-3">비밀번호/변경</th>
+										<td><input type="password" class="detail_form" name="userPw"/></td>
+									</tr>				
+									<tr>
+										<th class="py-3">이름</th>
+										<td><input type="text" class="detail_form" name="userNm"/></td>
+									</tr>
+									<tr>
+										<th class="py-3">권한</th>
+										<td>
+											<select class="detail_form" name="userAuth">
+											<option value="">선택하세요</option>
+											<c:forEach items="${cdList}" var="code">
+												<option value="${code.cdCode}">${code.cdTitle1}</option>
+											</c:forEach>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<th class="py-3">사용여부</th>
+										<td>
+											<div class="radio">
+												<input type="radio" name="useYn" id="useY" value="Y" checked> 
+												<label for="useY"> 사용</label>
+												<input type="radio" name="useYn" id="useN" value="N" >  
+												<label for="useN"> 미사용</label>
+											</div>								
+										</td>
+									</tr>
+									<tr>
+										<th>생성일시</th>
+										<td>
+											<input type="text" name="inputDatetime" readonly/>
+											<input type="text" class="detail_form" name="addYn" value="N" style="display:none;"/>
+										</td>
+									</tr>
+								</table>
+								</form>			
+							</div>
+							
+							<div class="pt-3">								
+								<button type="button" class="btn_admin" onclick="saveUser()" style="float:right;">
+									저장
+								</button>
+								<button type="button" class="btn_admin bg-secondary" onclick="deleteUser()" style="float:right;">
+									삭제
+								</button>
+							</div>
+						</div>						
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 <jsp:include page="../common/script.jsp" />
 <script>
 	var table;

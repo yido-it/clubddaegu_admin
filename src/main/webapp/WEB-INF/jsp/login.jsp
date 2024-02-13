@@ -10,7 +10,7 @@
 	<div class="login-container bg-white">
 		<div class="login_form">
             <div class="logo">
-                <h4 class="txt_title fl" style="">marriott 관리자</h4>
+                <h4 class="txt_title fl" style="">클럽디 대구 메리어트 관리자</h4>
             </div>
 
 			<form id="form-login" action="/checkLogin" method="post" novalidate="novalidate" >              

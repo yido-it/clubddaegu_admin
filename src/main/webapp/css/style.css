@@ -1249,16 +1249,17 @@ i.fa-solid.fa-power-off {
 }
 
 .modal-header {
-	/* background: linear-gradient(to right, #f26121, #5d2b00); */
-	background-color: #5d2b00;
+	background-color: #811c1c;
 	height: 45px;
 	padding: 10px;
 	padding-bottom: 0;
 }
-
 .modal-header .close {
-	color: white;
-	font-size: 34px;
+    font-size: 17px;
+}
+button.close {
+    opacity: 1;
+    text-shadow: 0 0 BLACK;
 }
 
 .modal-header button span {
@@ -1660,8 +1661,6 @@ figure {
 /*모달*/
 .modal{z-index:99999}
 .modal-title{color:white;font-size:22px}
-.modal-header{/* background: linear-gradient(to right, #f26121, #5d2b00); */background-color:#5d2b00;height:45px; padding: 10px; padding-bottom: 0;}
-.modal-header .close {  color: white;  font-size: 34px;}
 .modal-header button span{color:white}
 .modal-dialog{max-width:960px}
 .card_marker{color: white !important; background-color: #f26121; padding: 3px 15px; font-size: 14px;}
@@ -1719,10 +1718,6 @@ background-repeat: no-repeat ;}
 	-ms-transition: all 1.4s ease;
 	-o-transition: all 1.4s ease;
 	transition: all 1.4s ease;
-}
-input, select {
-    text-align: right;
-    margin: 0px 10px;
 }
 
 /* input {
@@ -1821,17 +1816,21 @@ input:disabled {
 	cursor: pointer;
 	padding-left: 5px;
 }
-
+.btn-info {
+    color: #fff;
+    background-color: #17a2b8 !important;
+    border-color: #17a2b8 !important;
+}
 .btn_admin {
-	min-width: 100px;
-	width: fit-content;
-	height: 38px;
-	margin-left: 7px;
-	border-radius: 5px;
-	background-color: #00263e;
-	border: 1px solid #00263e;
-	color: #fff;
-	padding: 4px 12px;
+    min-width: 80px;
+    width: fit-content;
+    margin-left: 7px;
+    border-radius: 5px;
+    background-color: #00263e;
+    border: 0;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 14px;
 }
 .main_list {
 	padding: 1rem 3rem;
@@ -1851,10 +1850,6 @@ input:disabled {
     justify-content: center;
     border-bottom: 1px solid #80808085;
 }
-.form-control {
-    margin: 10px;
-}
-
 /*가져온 스크립트 css*/
 
 .close div {
@@ -2026,9 +2021,27 @@ input:disabled {
 	.main_list {
 	    padding: 1rem 0rem;
 	}
+	.container-fluid .col-7,
+	.detail_area.border.py-3.px-4.mt-3.col-7 {
+	    max-width: 100%;
+	    flex: 0 0 100%;
+	}
 	div#reportTable .col-7 {
 	    max-width: 100% !important;
 	    flex: 100;
+	}
+	textarea#smsArea {
+	    margin-bottom: 20px;
+	}
+	div#closeSmsModal .modal-body {
+	    flex-direction: column;
+	}
+	div#closeSmsModal .col-6 {
+	    max-width: 100% !important;
+	    flex: 0 0 100% !important;
+	}
+	div#closeSmsModal .col-6 .mt-2.pl-2 {
+		padding-left: 0 !important;
 	}
 	div#reportTable .col-7 .reportRow:last-child .col-3 {
 	    flex: 0 0 100%;
@@ -2362,7 +2375,7 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"] {
-	accent-color: #f26121;
+	accent-color: #811c1c;
 }
 .chk_type input[type="checkbox"]:hover {
 	accent-color: #f26121;
@@ -2396,5 +2409,4 @@ input[type="checkbox"] {
     
 table.dataTable tbody tr.selected>* {
 	box-shadow: none !important;
-	color: inherit !important;
 }   

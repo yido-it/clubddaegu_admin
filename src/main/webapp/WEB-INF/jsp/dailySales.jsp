@@ -8,11 +8,11 @@
 <style>
 .reportContent input {text-align:right}
 </style>
-<body class="fixed-header desktop">  
 
-<jsp:include page="common/navigation.jsp" />
-<!-- 상단 메뉴 -->
-<div class="page-container ">
+<body class="fixed-header desktop">  
+	<jsp:include page="common/navigation.jsp" />
+	<!-- 상단 메뉴 -->
+	<div class="page-container">
 	<div class="page-content-wrapper">
 		<div class="container-fluid">
 			<div class="content">
@@ -69,7 +69,7 @@
 						<div class="row mt-3">
 							<!-- <div class="col-md-7"></div> -->
 							<div class="col-7 btn-box">
-								<button type="button" class="btn_admin btn_send" id="btnCloseSms" data-toggle="modal" data-target="#closeSmsModal" data-whatever="@mdo" style="float:right;width:120px">
+								<button type="button" class="btn_admin btn_send" id="btnCloseSms" data-toggle="modal" data-target="#closeSmsModal" data-whatever="@mdo" style="float:right;">
 									마감문자
 								</button>
 								<button type="button" class="btn_admin" id="btnCancel" onclick="cancelCloseDailySales()" style="float:right;">
