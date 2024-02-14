@@ -2409,4 +2409,5 @@ input[type="checkbox"] {
     
 table.dataTable tbody tr.selected>* {
 	box-shadow: none !important;
+	background-color: #bbb;
 }   
