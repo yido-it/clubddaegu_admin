@@ -19,7 +19,7 @@
 				<div class="main_list">
 					<div class="row">
 					    <div class="col-md-12">
-							<span class="span_title fl">일매출리포트 &nbsp;</span>
+							<span class="span_title fl">일별마감 &nbsp;</span>
 							<input class="form-control fl text-center m-0" type="date" id="searchDt" style="width: 200px;">
 						</div>
 					</div>

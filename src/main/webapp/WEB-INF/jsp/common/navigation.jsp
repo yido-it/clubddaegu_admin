@@ -91,7 +91,7 @@ $(document).ready(function(){
 			<c:if test="${sessionScope.session.userAuth == 'ATH100' || sessionScope.session.userAuth == 'ATH200' || sessionScope.session.userAuth == 'ATH300' || sessionScope.session.userAuth == 'ATH400' || sessionScope.session.userAuth == 'ATH600'}">	 
 			<li>
 	        	<a href="/report/dailySales">
-	            	<span class="title">일 매출 리포트</span>
+	            	<span class="title">일별마감</span>
 	            </a>
 	        </li>
 	        </c:if>
