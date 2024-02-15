@@ -16,10 +16,6 @@
 			 
 			<div class="modal-body" style="padding:10px;display:flex;">  		
 				
-				<div class="col-6">
-					<textarea id='smsArea' class="p-3" style='width:100%; height:600px'></textarea>				
-				</div>
-				
 				<!-- 수신대상 목록 -->
 				<div class="col-6">
 					<span class="span_title mt-1 pl-3" style="font-size:20px">마감문자 수신 대상</span>
@@ -42,6 +38,10 @@
 					</div>
 				</div>
 			
+				<div class="mt-2 col-6" style="padding-left:10px">
+					<textarea id='smsArea' class="p-3" style='width:100%; height:600px'></textarea>				
+				</div>
+				
 			</div>
 		</div>
 	</div>

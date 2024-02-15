@@ -143,7 +143,7 @@
 											</div>								
 										</td>
 									</tr>
-									<tr>
+									<tr id="createDt" style="display:none">
 										<th>생성일시</th>
 										<td>
 											<input type="text" name="inputDatetime" readonly/>
@@ -224,10 +224,12 @@
 		        $("input[name='userId']").prop("readonly", true);
 		        $("#detailTitle").text("사용자 수정");
 		        $("input[name='addYn']").val("N"); 
+		        $('#createDt').css('display', '');
 	        } else {
 		        $("input[name='userId']").prop("readonly", false);
 		        $("#detailTitle").text("사용자 추가");	        	
 		        $("input[name='addYn']").val("Y"); 
+		        $('#createDt').css('display', 'none');
 	        }
 	        
 	        $(".detail_area").show();

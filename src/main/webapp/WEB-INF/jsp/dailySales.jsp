@@ -63,6 +63,12 @@
 										<textarea rows="5" class="form-control" id="remark"></textarea>
 									</div>
 								</div>	
+								<div class="row reportRow">
+									<div class="col-3 reportTitle"><p>이미지</p></div>
+									<div class="col-9 reportContent">
+										<textarea rows="5" class="form-control" id="remark"></textarea>
+									</div>
+								</div>	
 							</div>
 						</div>	
 						
