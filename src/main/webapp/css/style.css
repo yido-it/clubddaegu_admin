@@ -1829,7 +1829,7 @@ input:disabled {
     background-color: #00263e;
     border: 0;
     color: #fff;
-    padding: 5px 10px;
+    padding: 10px 10px;
     font-size: 14px;
 }
 .main_list {
@@ -2065,7 +2065,7 @@ input:disabled {
     	width: 100% !important;
 	}
 	input#searchDt {
-    	margin-top: 10px !important;
+    	/*margin-top: 10px !important;*/
 	}
 	.col-3.reportTitle.none-data,
 	.col-3.reportContent.none-data {

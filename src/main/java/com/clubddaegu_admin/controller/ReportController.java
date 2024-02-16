@@ -102,6 +102,13 @@ public class ReportController {
 		return result;
 	}
 	
+	/**
+	 * 일별마감 삭제
+	 * 
+	 * @param req
+	 * @param dailyReport
+	 * @return
+	 */
 	@RequestMapping("/deleteDailySales")  
 	@ResponseBody
 	public ResultVO deleteDailySales(HttpServletRequest req, DailyReport dailyReport) {
@@ -114,22 +121,18 @@ public class ReportController {
 		
 		return result;
 	}
-	/*
-	@RequestMapping(value = "/insertDailyReport", method = RequestMethod.POST)
-	@ResponseBody
-	public ResultVO insertDailyReport(HttpServletRequest req, ModelMap model, DailyReport dailyReport
-			, @SessionAttribute("session") UserCustom session) {
-		
-        log.debug("[insertDailyReport] insertDailyReport : {}", dailyReport);
 
-		dailyReport.setInputStaff(session.getUserId());
-		dailyReport.setUpdateStaff(session.getUserId());
-		dailyReport.setInputIp(Utils.getClientIpAddress(req));
-		dailyReport.setUpdateIp(Utils.getClientIpAddress(req));
-        ResultVO result = dpService.insertDailyReport(dailyReport);
-		return result;
-	}*/
-	
+	/**
+	 * 일별마감처리
+	 * 
+	 * @param req
+	 * @param multi
+	 * @param model
+	 * @param session
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/insertDailyReport", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultVO insertDailyReport(HttpServletRequest req, MultipartHttpServletRequest multi, ModelMap model
@@ -162,7 +165,34 @@ public class ReportController {
         
 		return result;
 	}
-	
+
+	@PostMapping("/dailySales/sendCloseSms")  
+	@ResponseBody
+	public Map<String, Object> sendCloseSms (@RequestBody Map<String, Object> params, HttpServletRequest req) {
+		Map<String, Object> map = new HashMap<String, Object>();	
+		try {
+			@SuppressWarnings("unchecked")
+			List<Map<String, Object>> smsList = (List<Map<String, Object>>) params.get("smsList");
+			String txt = (String) params.get("smsText");
+			
+			for(Map<String, Object> item : smsList) {				
+				// SMS 전송
+				Map<String, Object> smsParams = new HashMap<>();
+			
+				smsParams.put("hpNo", (item.get("cdTitle3")).toString().replace("-", ""));
+				smsParams.put("sendMsg", txt);
+				
+				commonService.sendSms(smsParams);
+			}
+			
+			map.put("result", true);
+		} catch(Exception e) {			
+			map.put("result", false);
+			map.put("message", "마감문자 전송 중 오류가 발생했습니다.");
+		}
+		
+		return map;
+	}
 	/**
 	 * 일매출리포트 엑셀 파일 읽어오기
 	 * >> DB에 insert 하는 작업은 없음
@@ -243,33 +273,6 @@ public class ReportController {
 		return result;
 	}*/
 	
-	@PostMapping("/dailySales/sendCloseSms")  
-	@ResponseBody
-	public Map<String, Object> sendCloseSms (@RequestBody Map<String, Object> params, HttpServletRequest req) {
-		Map<String, Object> map = new HashMap<String, Object>();	
-		try {
-			@SuppressWarnings("unchecked")
-			List<Map<String, Object>> smsList = (List<Map<String, Object>>) params.get("smsList");
-			String txt = (String) params.get("smsText");
-			
-			for(Map<String, Object> item : smsList) {				
-				// SMS 전송
-				Map<String, Object> smsParams = new HashMap<>();
-			
-				smsParams.put("hpNo", (item.get("cdTitle3")).toString().replace("-", ""));
-				smsParams.put("sendMsg", txt);
-				
-				commonService.sendSms(smsParams);
-			}
-			
-			map.put("result", true);
-		} catch(Exception e) {			
-			map.put("result", false);
-			map.put("message", "마감문자 전송 중 오류가 발생했습니다.");
-		}
-		
-		return map;
-	}
 	
 	/**
 	 * 일별마감 이미지 업로드
@@ -303,7 +306,7 @@ public class ReportController {
 	 * 
 	 * @param params
 	 * @return
-	 */
+	
 	@RequestMapping(value = "/deleteReportImg")
 	@ResponseBody
 	public Map<String, Object> deleteReportImg(@RequestParam Map<String, Object> params) {
@@ -317,6 +320,6 @@ public class ReportController {
 		}
 		return map;
 	}
-	
+	 */
 }
  	

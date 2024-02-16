@@ -61,14 +61,18 @@
 	<insert id="insertReportPicture">
 		/* 일별마감 이미지 등록 */
 		INSERT INTO daily_report_image (
-			  close_date
-			, img_name
-			, img_path
+				close_date			, img_name			, img_path		
 		) VALUES (
-			  #{closeDate}
-			, #{imgName}
-			, #{imgPath}
+				#{closeDate}		, #{imgName}		, #{imgPath}
 		)
+	</insert>
+	
+	<insert id="deleteReportPicture">
+		/* 일별마감 이미지 삭제처리 */
+		DELETE 
+			FROM daily_report_image 
+			WHERE close_date = #{closeDate}
+			
 	</insert>
 	
 	<select id="selectReportPicture" resultType="DailyReport">

@@ -22,10 +22,13 @@ public interface DailyReportMapper {
 	
 	public int deleteDailyReport(DailyReport dailyReport);
 	
-	// 일별마감 이미지
+	public DailyReport selectReportPicture(DailyReport dailyReport);
+	
+	// 일별마감 이미지 등록 
 	public int insertReportPicture(DailyReport dailyReport);
 	
-	public DailyReport selectReportPicture(DailyReport dailyReport);
+	// 일별마감 이미지 삭제
+	public int deleteReportPicture(DailyReport dailyReport);
 	
 
 }

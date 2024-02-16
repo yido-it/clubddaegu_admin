@@ -68,7 +68,7 @@ public class DailyReportService {
        
 		ResultVO result = new ResultVO();
 		
-		//try {
+		try {
 			log.debug("[insertDailyReport] dailyReport : {}", dailyReport);
 			
 			Iterator<String> iter = multi.getFileNames();	
@@ -104,7 +104,6 @@ public class DailyReportService {
 				dailyReport.setCloseDate(multi.getParameter("closeDate").toString());
 				dailyReport.setImgPath(folderNm);
 				dailyReport.setImgName(newFileNm);
-				
 				dpMapper.insertReportPicture(dailyReport);
 				
 			}		
@@ -129,10 +128,10 @@ public class DailyReportService {
 	        	result.setCode("9999");
 	        	result.setMessage("마감 중 오류가 발생했습니다.");
 	        }		
-		//} catch(Exception e) {			
-			//result.setCode("9999");
-			//result.setMessage("마감 중 오류가 발생했습니다.");
-		//}
+		} catch(Exception e) {			
+			result.setCode("9999");
+			result.setMessage("마감 중 오류가 발생했습니다.");
+		}
 		return result;
     	
     }
@@ -451,7 +450,9 @@ public class DailyReportService {
         
         // 삭제 처리 
         int delCnt = dpMapper.deleteDailyReport(dailyReport);
-        if (delCnt <= 0) {
+        int delCnt2 = dpMapper.deleteReportPicture(dailyReport);
+        
+        if (delCnt <= 0 || delCnt2 <= 0) {
         	result.setCode("9999");
         	result.setMessage("마감취소 중 오류가 발생하였습니다.");
         }
@@ -466,7 +467,7 @@ public class DailyReportService {
      * @param params
      * @param mreq
      * @throws Exception
-     */
+    
 	public void uploadReportImg(Map<String, Object> params, MultipartHttpServletRequest mreq) throws Exception {
 		Iterator<String> iter = mreq.getFileNames();	
 		while(iter.hasNext()) {
@@ -503,7 +504,7 @@ public class DailyReportService {
 			dpMapper.insertReportPicture(dailyReport);
 			
 		}		
-	}	
+	}	*/
 	
 	public DailyReport selectReportPicture(DailyReport dailyReport) {
 

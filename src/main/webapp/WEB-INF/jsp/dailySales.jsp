@@ -7,6 +7,22 @@
 <jsp:include page="common/head.jsp" />
 <style>
 .reportContent input {text-align:right}
+/* write */
+.writeBox .list{padding:5px 0;}
+.writeBox .list .title{display:inline-block;width:100px;padding:10px 0;}
+.writeBox .list .titleIp{width:981px;height:35px;border:1px solid #e1e1e1;}
+.writeBox .list .liTxt{font-size:12px;color:#3a3a3a;margin-left:5px;}
+.writeBox .fileName {
+display:inline-block;width:400px;height:35px;padding-left:10px;margin-right:5px;line-height:35px;
+border:1px solid #e1e1e1;background-color:#fff;vertical-align:middle;
+}
+.writeBox .btn_file {
+display:inline-block;background:#707070;width:150px;height:35px;line-height:35px;
+text-align:center;vertical-align:middle;color:#fff;font-size:12px;
+}
+.writeBox .btn_file.file2 {background:#d8d8d8;width:150px;color:#606060;border:1px solid #a0a0a0;}
+.writeBox input[type="file"] {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
 </style>
 
 <body class="fixed-header desktop">  
@@ -17,17 +33,39 @@
 		<div class="container-fluid">
 			<div class="content">
 				<div class="main_list">
+				
 					<div class="row">
-					    <div class="col-md-12">
+						<div class="col-md-12">
 							<span class="span_title fl">일별마감 &nbsp;</span>
-							<input class="form-control fl text-center m-0" type="date" id="searchDt" style="width: 200px;">
+						</div>
+					</div>
+					
+					<div class="" >
+						<div class="col-md-7">
+							<div class="row">
+							    <div class="col-4">
+									<input class="form-control fl text-center m-0" type="date" id="searchDt" style="width: 200px;">
+								</div>
+							
+								<div class="col-8">
+									<button type="button" class="btn_admin btn_send" id="btnCloseSms" data-toggle="modal" data-target="#closeSmsModal" data-whatever="@mdo" style="float:right;">
+										마감문자
+									</button>
+									<button type="button" class="btn_admin" id="btnCancel" onclick="cancelCloseDailySales()" style="float:right;">
+										마감취소
+									</button>
+									<button type="button" class="btn_admin" id="btnClose" onclick="insertDailyReport()" style="float:right;">
+										마감
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 						
 					<div>
 						<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
 					
-						<div class="row mt-3" id="reportTable">
+						<div class="row mt-3 writeBox" id="reportTable">
 							<div class="col-7">
 								<div class="row reportRow" style="border-top : 1px solid #80808085;">
 									<div class="col-3 reportTitle"><p>마감일자</p></div>
@@ -82,36 +120,24 @@
 
 								</div>		
 								
-								<div class="row">
+								<div class="row" id="selectImage">
 									<div class="col-3 reportTitle"><p>이미지</p></div>
 									<div class="col-9 reportContent">
-										<input type="text" class="fileName" id="imageFileName" style="font-size: 15px" readonly="readonly">
-										<label for="uploadImage" class="btn_file">이미지찾기</label>
+										<input type="text" class="fileName" id="imageFileName" style="font-size: 15px;" readonly="readonly">
+										
+										<label for="uploadImage" class="btn_file" style="margin-bottom:0px">이미지찾기</label>  
 										<input type="file" id="uploadImage" name="uploadImage" class="uploadBtn">
 									</div>
 								</div>		
-								<div id="reportImage"></div>		      
+								<div class="row" >
+									<div class="col" id="reportImage">
+									</div>
+								</div>		      
 
 							</div>
 						</div>	
 						</form>
 						
-						<div class="row mt-3">
-							<!-- <div class="col-md-7"></div> -->
-							<div class="col-7 btn-box">
-								<button type="button" class="btn_admin btn_send" id="btnCloseSms" data-toggle="modal" data-target="#closeSmsModal" data-whatever="@mdo" style="float:right;">
-									마감문자
-								</button>
-								<button type="button" class="btn_admin" id="btnCancel" onclick="cancelCloseDailySales()" style="float:right;">
-									마감취소
-								</button>
-								<button type="button" class="btn_admin" id="btnClose" onclick="insertDailyReport()" style="float:right;">
-									마감
-								</button>
-								
-							</div>
-						</div>
-
 					</div>	
 				</div>
 			</div>
@@ -250,30 +276,16 @@ function initDailyReportTable(pData) {
 	   		mYearPlan = yRoomRevenue + yTotalFood + yTotalOther;	// 연 목표
 	   		// end.
 	   		
+	   		// ┌───────────── 일별마감 이미지 ─────────────┐
 	   		if (reportImage != null) {
-	   			console.log(reportImage.imgName);
-	   			
-	   			let imgDiv = "";
-	   			imgDiv += '<div class="img-area px-0 col-6 mb-3" id="reportImage">';
-	   			imgDiv += '<div class="">';
-	   			imgDiv += '<div class="dz-image my-2" style="text-align: center">';
-	   			imgDiv += '<img alt='+reportImage.imgName+'" src='+reportImage.fileURL+' data-dz-thumbnail>';
-	   			imgDiv += '</div>';
-	   			imgDiv += '<div class="d-flex mt-1">';
-	   			imgDiv += '<div class="ml-auto pl-3 text-right">';
-	   			imgDiv += '	<a class="dz-remove color-red-dark font-14 btn" href="javascript:undefined;" ';
-	   			imgDiv += '	id='+reportImage.closeDate+' data-filepath='+reportImage.ImgPath+' data-filename='+reportImage.imgName+' data-dz-remove>';
-	   	
-	   			imgDiv += '	</a>';
-	   			imgDiv += '	</div>';	
-	   			imgDiv += '</div>';
-	   			imgDiv += '</div>';
-	   			
-	   			$('#reportImage').html(imgDiv);
+	   			$('#reportImage').html('<img alt='+reportImage.imgName+'" src='+reportImage.fileURL+' style="width:100%">');
+	   			$('#selectImage').css('display', 'none');
 	   		} else {
-
 	   			$('#reportImage').html("");
+	   			$('#selectImage').css('display', '');
+	   			
 	   		}
+	   		// └───────────── 일별마감 이미지 ─────────────┘
 	   		 
 		} else {
 
@@ -307,7 +319,8 @@ function initDailyReportTable(pData) {
    		$('#btnReadExcel').css('display', '');
    		$('#excelUpForm').css('display', '');
 		
-   		$('#reportImage').html("");
+   		$('#reportImage').html("");				// 일별마감 이미지
+   		$('#selectImage').css('display', '');
 
    		// 마감문자 포맷에 사용되는 값 초기화
    		mCloseDate = '';
@@ -440,6 +453,7 @@ function cancelCloseDailySales() {
 
 	}
 }
+
 $("#searchDt").flatpickr({
 	  defaultDate: "today"
 	, maxDate: "today"
@@ -449,7 +463,6 @@ $("#searchDt").flatpickr({
 		initTables();
 	}
 });
-
 
 
 </script>
