@@ -25,33 +25,50 @@
 					</div>
 						
 					<div>
+						<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
+					
 						<div class="row mt-3" id="reportTable">
 							<div class="col-7">
 								<div class="row reportRow" style="border-top : 1px solid #80808085;">
 									<div class="col-3 reportTitle"><p>마감일자</p></div>
-									<div class="col-3 reportContent text-center"><p id="closeDate"></p></div>
+									<div class="col-3 reportContent text-center">
+										<p id="viewCloseDate"></p>
+										<input type="hidden" name="closeDate" id="closeDate">
+									</div>
 									
 									<div class="col-3 reportTitle"><p>일 판매객실수</p></div>
-									<div class="col-3 reportContent"><input type="text" id="dailyRoomSalesCnt" onkeyup="setAddComma(this)"></div>
+									<div class="col-3 reportContent">
+										<input type="text" id="dailyRoomSalesCnt" name="dailyRoomSalesCnt" onkeyup="setAddComma(this)">
+									</div>
 									
 								</div>
 								<div class="row reportRow">
 									<div class="col-3 reportTitle"><p>당일 매출액 목표</p></div>
-									<div class="col-3 reportContent"><input type="text" id="dailySalesTarget" onkeyup="setAddComma(this)"></div>
+									<div class="col-3 reportContent">
+										<input type="text" id="dailySalesTarget" name="dailySalesTarget" onkeyup="setAddComma(this)">
+									</div>
 									
 									<div class="col-3 reportTitle"><p>당일 매출액 실적</p></div>
-									<div class="col-3 reportContent"><input type="text" id="dailySalesActual" onkeyup="setAddComma(this)"></div>
+									<div class="col-3 reportContent">
+										<input type="text" id="dailySalesActual" name="dailySalesActual" onkeyup="setAddComma(this)">
+									</div>
 								</div>
 								<div class="row reportRow">
 									<div class="col-3 reportTitle"><p>객실매출</p></div>
-									<div class="col-3 reportContent"><input type="text" id="roomSales" onkeyup="setAddComma(this)"></div>
+									<div class="col-3 reportContent">
+										<input type="text" id="roomSales" name="roomSales" onkeyup="setAddComma(this)">
+									</div>
 									
 									<div class="col-3 reportTitle"><p>식음매출</p></div>
-									<div class="col-3 reportContent"><input type="text" id="restaurantSales" onkeyup="setAddComma(this)"></div>
+									<div class="col-3 reportContent">
+										<input type="text" id="restaurantSales" name="restaurantSales" onkeyup="setAddComma(this)">
+									</div>
 								</div>
 								<div class="row reportRow">
 									<div class="col-3 reportTitle"><p>기타매출</p></div>
-									<div class="col-3 reportContent"><input type="text" id="etcSales" onkeyup="setAddComma(this)"></div>
+									<div class="col-3 reportContent">
+										<input type="text" id="etcSales" name="etcSales" onkeyup="setAddComma(this)">
+									</div>
 									
 									<div class="col-3 reportTitle none-data"></div>
 									<div class="col-3 reportContent none-data"></div>
@@ -60,17 +77,22 @@
 								<div class="row reportRow">
 									<div class="col-3 reportTitle"><p>비고</p></div>
 									<div class="col-9 reportContent">
-										<textarea rows="5" class="form-control" id="remark"></textarea>
+										<textarea rows="5" class="form-control" id="remark" name="remark"></textarea>
 									</div>
-								</div>	
-								<div class="row reportRow">
-									<div class="col-3 reportTitle"><p>이미지ㄴㅇㅇㅇ</p></div>
+								</div>		
+								
+								<div class="row">
+									<div class="col-3 reportTitle"><p>이미지</p></div>
 									<div class="col-9 reportContent">
-										<textarea rows="5" class="form-control" id="remark"></textarea>
+										<input type="text" class="fileName" id="imageFileName" style="font-size: 15px" readonly="readonly">
+										<label for="uploadImage" class="btn_file">이미지찾기</label>
+										<input type="file" id="uploadImage" name="uploadImage" class="uploadBtn">
 									</div>
-								</div>	
+								</div>		
+								<div id="reportImage"></div>		      
 							</div>
 						</div>	
+						</form>
 						
 						<div class="row mt-3">
 							<!-- <div class="col-md-7"></div> -->
@@ -87,6 +109,7 @@
 								
 							</div>
 						</div>
+
 					</div>	
 				</div>
 			</div>
@@ -130,6 +153,13 @@ let mYearSales = 0;	// 연누계
 
 $(document).ready(function() {
 	initTables();
+	
+	$('#uploadImage').change(function (event) {
+		var fileValue = $("#uploadImage").val().split("\\");
+		var fileName = fileValue[fileValue.length-1];
+
+		$("#imageFileName").val(fileName);
+	});
 });
 
 
@@ -148,7 +178,7 @@ function initTables() {
         success: function(data) {
         	endDtPreloader();
 
-            initDailyReportTable(data.dailyReport, data.yearReport, data.salesPlanMonth, data.salesPlanYear);
+            initDailyReportTable(data);
 
             $('.loading').css('display', 'none');
         },
@@ -159,17 +189,25 @@ function initTables() {
     });
 }
 
-function initDailyReportTable(reportData, yearReport, mPlanData, yPlanData) {
+function initDailyReportTable(pData) {
+	
+	let reportData = pData.dailyReport;
+	let yearReport = pData.yearReport;
+	let mPlanData = pData.salesPlanMonth;
+	let yPlanData = pData.salesPlanYear;
+	let reportImage = pData.reportImage;
 	
 	console.log('initDailyReportTable > reportData :', reportData);
 	console.log('initDailyReportTable > yearReport :', yearReport);
 	console.log('initDailyReportTable > mPlanData :', mPlanData);
 	console.log('initDailyReportTable > yPlanData :', yPlanData);
+	console.log('initDailyReportTable > reportImage :', reportImage);
 	
 	if (reportData != null) {
 		// 데이터 있을때
 
-		$('#closeDate').text(setDateCell(reportData.closeDate));
+		$('#viewCloseDate').text(setDateCell(reportData.closeDate));
+		$('#closeDate').val(reportData.closeDate);
 		$('#dailyRoomSalesCnt').val(setCountCell(reportData.dailyRoomSalesCnt));
 		$('#dailySalesTarget').val(setCountCell(reportData.dailySalesTarget));
 		$('#dailySalesActual').val(setCountCell(reportData.dailySalesActual));
@@ -210,6 +248,31 @@ function initDailyReportTable(reportData, yearReport, mPlanData, yPlanData) {
 	   		mYearPlan = yRoomRevenue + yTotalFood + yTotalOther;	// 연 목표
 	   		// end.
 	   		
+	   		if (reportImage != null) {
+	   			console.log(reportImage.imgName);
+	   			
+	   			let imgDiv = "";
+	   			imgDiv += '<div class="img-area px-0 col-6 mb-3" id="reportImage">';
+	   			imgDiv += '<div class="">';
+	   			imgDiv += '<div class="dz-image my-2" style="text-align: center">';
+	   			imgDiv += '<img alt='+reportImage.imgName+'" src='+reportImage.fileURL+' data-dz-thumbnail>';
+	   			imgDiv += '</div>';
+	   			imgDiv += '<div class="d-flex mt-1">';
+	   			imgDiv += '<div class="ml-auto pl-3 text-right">';
+	   			imgDiv += '	<a class="dz-remove color-red-dark font-14 btn" href="javascript:undefined;" ';
+	   			imgDiv += '	id='+reportImage.closeDate+' data-filepath='+reportImage.ImgPath+' data-filename='+reportImage.imgName+' data-dz-remove>';
+	   	
+	   			imgDiv += '	</a>';
+	   			imgDiv += '	</div>';	
+	   			imgDiv += '</div>';
+	   			imgDiv += '</div>';
+	   			
+	   			$('#reportImage').html(imgDiv);
+	   		} else {
+
+	   			$('#reportImage').html("");
+	   		}
+	   		 
 		} else {
 
 	   		$('#btnClose').show();
@@ -224,7 +287,8 @@ function initDailyReportTable(reportData, yearReport, mPlanData, yPlanData) {
 	} else {
 		// 데이터 없을때
 		
-		$('#closeDate').text($('#searchDt').val());
+		$('#viewCloseDate').text($('#searchDt').val());
+		$('#closeDate').val($('#searchDt').val().replaceAll("-", ""));
 		$('#dailyRoomSalesCnt').val("");
 		$('#dailySalesTarget').val("");
 		$('#dailySalesActual').val("");
@@ -240,6 +304,8 @@ function initDailyReportTable(reportData, yearReport, mPlanData, yPlanData) {
    		
    		$('#btnReadExcel').css('display', '');
    		$('#excelUpForm').css('display', '');
+		
+   		$('#reportImage').html("");
 
    		// 마감문자 포맷에 사용되는 값 초기화
    		mCloseDate = '';
@@ -297,42 +363,29 @@ function setAddComma(input) {
 
 // 마감
 function insertDailyReport() {
-	
-	var closeDate = $('#searchDt').val().replaceAll("-", "");
-	
-	var dailyRoomSalesCnt = setReplaceAll($('#dailyRoomSalesCnt').val());
-	console.log('dailyRoomSalesCnt:', dailyRoomSalesCnt);
-	
-	var dailySalesTarget = setReplaceAll($('#dailySalesTarget').val());
-	var dailySalesActual = setReplaceAll($('#dailySalesActual').val());
-	var roomSales = setReplaceAll($('#roomSales').val());
-	var restaurantSales = setReplaceAll($('#restaurantSales').val());
-	var etcSales = setReplaceAll($('#etcSales').val());
-	var remark = $('#remark').val();
-	
-	if (closeDate == "" || dailyRoomSalesCnt == "" || dailySalesTarget == "" || dailySalesActual == "" 
-			|| roomSales == "" || restaurantSales == "" || etcSales == "") {
+
+    var formData = new FormData($("#fileForm")[0]);
+   
+	if ($('#dailyRoomSalesCnt').val() == "" || $('#dailySalesTarget').val() == "" || $('#dailySalesActual').val() == "" 
+			|| $('#roomSales').val() == "" || $('#restaurantSales').val() == "" || $('#etcSales').val() == "") {
 		alert('비고를 제외한 모든 항목을 다 입력해 주세요.');
 		return false;
 	}
 	
+	if ($('#imageFileName').val() == "") {
+		alert('이미지 업로드는 필수입니다.');
+		return false;
+	}
+
+
 	if(confirm('입력한 정보로 마감자료를 등록하시겠습니까?')) {
-			
+
 	    $.ajax({
 	        url: '/report/insertDailyReport',
 	        type: "post",
-	        dataType: 'json',
-	        data: {
-	        	closeDate : closeDate
-	        	, dailyRoomSalesCnt : dailyRoomSalesCnt
-	        	, dailySalesTarget : dailySalesTarget
-	        	, dailySalesActual : dailySalesActual
-	        	, roomSales : roomSales
-	        	, restaurantSales : restaurantSales
-	        	, etcSales : etcSales
-	        	, remark : remark
-	        },
-	        contentType: 'application/x-www-form-urlencoded; charset=UTF-8', 
+	        data:  formData ,
+            processData : false,
+            contentType : false,
 	        success: function(data) {
 	        	
 	            if(data.code == "0000") {
@@ -342,8 +395,6 @@ function insertDailyReport() {
 	    	   		$('#btnCancel').show();
 	    	   		$('#btnSms').show();
 	    	   		$('#btnCloseSms').show();
-	    	   		
-	    	   		$('#attachFileName2').val('');
 	    	   		
 	    	   		initTables();
 	    	   		
@@ -395,7 +446,9 @@ $("#searchDt").flatpickr({
 	, onChange: function() {
 		initTables();
 	}
-})
+});
+
+
 
 </script>
 </html>

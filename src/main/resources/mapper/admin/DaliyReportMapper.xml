@@ -57,6 +57,26 @@
 		WHERE close_date 		= #{closeDate}
 	
 	</insert>
-
+	
+	<insert id="insertReportPicture">
+		/* 일별마감 이미지 등록 */
+		INSERT INTO daily_report_image (
+			  close_date
+			, img_name
+			, img_path
+		) VALUES (
+			  #{closeDate}
+			, #{imgName}
+			, #{imgPath}
+		)
+	</insert>
+	
+	<select id="selectReportPicture" resultType="DailyReport">
+		/* 일별마감 이미지 조회 */
+		SELECT *
+		FROM daily_report_image
+		WHERE close_date = #{closeDate}
+		LIMIT 1
+	</select>
 	
 </mapper>

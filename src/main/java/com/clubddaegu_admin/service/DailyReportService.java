@@ -6,8 +6,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -21,7 +28,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.clubddaegu_admin.common.utils.AWSFileUtil;
 import com.clubddaegu_admin.common.utils.Globals;
 import com.clubddaegu_admin.common.utils.ResultVO;
 import com.clubddaegu_admin.common.utils.Utils;
@@ -52,31 +61,78 @@ public class DailyReportService {
      * 
      * @param dailyReport
      * @return
+     * @throws IOException 
+     * @throws IllegalStateException 
      */
-    public ResultVO insertDailyReport(DailyReport dailyReport) {
+    public ResultVO insertDailyReport(DailyReport dailyReport, MultipartHttpServletRequest multi) throws IllegalStateException, IOException {
        
 		ResultVO result = new ResultVO();
 		
-		// 객실단가 
-		double tmpRoomPrice = dailyReport.getRoomSales() / dailyReport.getDailyRoomSalesCnt();
-		log.debug("tmpRoomPrice : " + tmpRoomPrice);
-		long roomPrice = Math.round(tmpRoomPrice);
-		log.debug("roomPrice : " + roomPrice);
-		
-		// 당월실적 
-		long monthSales = dailyReport.getRoomSales() + dailyReport.getRestaurantSales() + dailyReport.getEtcSales();
-		
-		dailyReport.setRoomPrice(roomPrice);
-		dailyReport.setMonthSales(monthSales);
+		//try {
+			log.debug("[insertDailyReport] dailyReport : {}", dailyReport);
+			
+			Iterator<String> iter = multi.getFileNames();	
+			while(iter.hasNext()) {
+				// 다음 file[n] 값을 Multipartfile 객체로 생성
+				MultipartFile mFile = multi.getFile(iter.next());			
+				 
+				// mFile의 파일이름 가져옴
+				log.debug("[insertDailyReport] OriginalFilename : {}", mFile.getOriginalFilename());
 				
-        int insCnt = dpMapper.insertDailyReport(dailyReport);
-        dailyReport.setLogDiv("I");
-        dpMapper.insertDailyReportLog(dailyReport);
-       
-        if (insCnt <= 0) {
-        	result.setCode("9999");
-        	result.setMessage("마감 중 오류가 발생했습니다.");
-        }
+				String orgFileNm = mFile.getOriginalFilename();
+				String extNm = orgFileNm.substring(orgFileNm.lastIndexOf(".") + 1, orgFileNm.length()).toLowerCase();
+				String newFileNm = System.currentTimeMillis() + "." + extNm;
+				
+				File sameFile = new File(orgFileNm);					// 똑같은 이름의 파일 객체 생성 (file_name.jpg)
+				String filePath = sameFile.getAbsolutePath();			// 실행 중인 working directory + File에 전달한 경로값 (C:\folder_name\file_name.jpg)
+				File tmpFile = new File(filePath);						// 절대경로로 다시 파일 객체 생성
+				mFile.transferTo(tmpFile);								// 임시파일 객체에 mFile을 복사하면 해당 경로에 파일이 만들어짐
+				
+				Path srcPath = Paths.get(filePath);						// String을 Path 객체로 만들어줌
+			    String mimeType = Files.probeContentType(srcPath);		// 파일 경로에 있는 Content-Type(파일 유형) 확인
+			    mimeType = (mimeType == null ? "" : mimeType);			// 확장자가 없는 경우 null을 반환
+				
+			    String folderNm = "report/" + multi.getParameter("closeDate") + "/";	
+				log.debug("[insertDailyReport] folderNm : {}", folderNm);		
+			    
+			    // AWSFileUtil.uploadFile(folderNm, newFileNm, mFile);	// 생성할 폴더명, 새 파일 이름, 복사될 파일 경로
+				AWSFileUtil.uploadFile(folderNm, newFileNm, extNm, tmpFile, mimeType);	// 생성할 폴더명, 새 파일 이름, 복사될 파일, 파일타입
+										
+				// 업로드 후 임시파일 삭제
+				if(tmpFile.exists()) tmpFile.delete();
+				
+				dailyReport.setCloseDate(multi.getParameter("closeDate").toString());
+				dailyReport.setImgPath(folderNm);
+				dailyReport.setImgName(newFileNm);
+				
+				dpMapper.insertReportPicture(dailyReport);
+				
+			}		
+            
+			// 객실단가 
+			double tmpRoomPrice = dailyReport.getRoomSales() / dailyReport.getDailyRoomSalesCnt();
+			log.debug("tmpRoomPrice : " + tmpRoomPrice);
+			long roomPrice = Math.round(tmpRoomPrice);
+			log.debug("roomPrice : " + roomPrice);
+			
+			// 당월실적 
+			long monthSales = dailyReport.getRoomSales() + dailyReport.getRestaurantSales() + dailyReport.getEtcSales();
+			
+			dailyReport.setRoomPrice(roomPrice);
+			dailyReport.setMonthSales(monthSales);
+					
+	        int insCnt = dpMapper.insertDailyReport(dailyReport);
+	        dailyReport.setLogDiv("I");
+	        dpMapper.insertDailyReportLog(dailyReport);
+	       
+	        if (insCnt <= 0) {
+	        	result.setCode("9999");
+	        	result.setMessage("마감 중 오류가 발생했습니다.");
+	        }		
+		//} catch(Exception e) {			
+			//result.setCode("9999");
+			//result.setMessage("마감 중 오류가 발생했습니다.");
+		//}
 		return result;
     	
     }
@@ -402,4 +458,55 @@ public class DailyReportService {
         
  		return result;
     }
+    
+  
+    /**
+     * 일별마감 이미지 업로드
+     * 
+     * @param params
+     * @param mreq
+     * @throws Exception
+     */
+	public void uploadReportImg(Map<String, Object> params, MultipartHttpServletRequest mreq) throws Exception {
+		Iterator<String> iter = mreq.getFileNames();	
+		while(iter.hasNext()) {
+			// 다음 file[n] 값을 Multipartfile 객체로 생성
+			MultipartFile mFile = mreq.getFile(iter.next());			
+			 
+			// mFile의 파일이름 가져옴
+			String orgFileNm = mFile.getOriginalFilename();
+			String extNm = orgFileNm.substring(orgFileNm.lastIndexOf(".") + 1, orgFileNm.length()).toLowerCase();
+			String newFileNm = System.currentTimeMillis() + "." + extNm;
+			
+			File sameFile = new File(orgFileNm);					// 똑같은 이름의 파일 객체 생성 (file_name.jpg)
+			String filePath = sameFile.getAbsolutePath();			// 실행 중인 working directory + File에 전달한 경로값 (C:\folder_name\file_name.jpg)
+			File tmpFile = new File(filePath);						// 절대경로로 다시 파일 객체 생성
+			mFile.transferTo(tmpFile);								// 임시파일 객체에 mFile을 복사하면 해당 경로에 파일이 만들어짐
+			
+			Path srcPath = Paths.get(filePath);						// String을 Path 객체로 만들어줌
+		    String mimeType = Files.probeContentType(srcPath);		// 파일 경로에 있는 Content-Type(파일 유형) 확인
+		    mimeType = (mimeType == null ? "" : mimeType);			// 확장자가 없는 경우 null을 반환
+			
+		    String folderNm = "report/" + params.get("closeDate") + "/";			
+		    
+		    // AWSFileUtil.uploadFile(folderNm, newFileNm, mFile);	// 생성할 폴더명, 새 파일 이름, 복사될 파일 경로
+			AWSFileUtil.uploadFile(folderNm, newFileNm, extNm, tmpFile, mimeType);	// 생성할 폴더명, 새 파일 이름, 복사될 파일, 파일타입
+									
+			// 업로드 후 임시파일 삭제
+			if(tmpFile.exists()) tmpFile.delete();
+			
+			DailyReport dailyReport = new DailyReport();
+			dailyReport.setCloseDate(params.get("closeDate").toString());
+			dailyReport.setImgPath(folderNm);
+			dailyReport.setImgName(newFileNm);
+			
+			dpMapper.insertReportPicture(dailyReport);
+			
+		}		
+	}	
+	
+	public DailyReport selectReportPicture(DailyReport dailyReport) {
+
+		return dpMapper.selectReportPicture(dailyReport);
+	}
 }

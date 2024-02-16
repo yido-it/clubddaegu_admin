@@ -1,5 +1,7 @@
 package com.clubddaegu_admin.model;
 
+import com.clubddaegu_admin.common.utils.Globals;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -37,6 +39,15 @@ public class DailyReport {
 	private String closeYn; 		// 마감여부 > Y : 마감 , N : 미마감
 	private long yearlySalesActual;	// 연간실적  
 	private String logDiv;			// I : insert , U : update , D : delete
+	
+	/* 일별마감 이미지 */
+	private String imgName;
+	private String imgPath;
+	
+	public String getFileURL() {
+	
+		return Globals.endPoint + "/" + Globals.bucketName + "/" + this.imgPath + this.imgName; 
+	}
 }
 
 
