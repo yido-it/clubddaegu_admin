@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Service;
 
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,6 +31,17 @@ public class MainInitialize {
 			Globals.reportFileRoot  = Utils.getPropertiesByType("report.file.root", "", serverType);
 			log.info("reportFileRoot : " + Globals.reportFileRoot);
 			log.info("======================= Initialize Finish =======================");
+			
+			log.info("======================= AWS S3 Info Start =======================");			
+			Globals.accessKey = Utils.getProperties("Globals.awsS3.accessKey", "");
+			log.info("AWS S3 accessKey : " + Globals.accessKey);
+			Globals.secretKey = Utils.getProperties("Globals.awsS3.secretKey", "");
+			log.info("AWS S3 secretKey : " + Globals.secretKey);
+			Globals.endPoint = Utils.getProperties("Globals.awsS3.endPoint", "");
+			log.info("AWS S3 endPoint : " + Globals.endPoint);
+			Globals.bucketName = Utils.getProperties("Globals.awsS3.bucketName", "");			
+			log.info("AWS S3 bucketName : " + Globals.bucketName);
+			log.info("======================= AWS S3 Info Finish =======================");
 		} catch (Exception e) {
 			System.out.println(e);
 		}

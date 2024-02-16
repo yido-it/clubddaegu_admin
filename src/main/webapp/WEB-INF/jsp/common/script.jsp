@@ -13,7 +13,6 @@
 <script src="/js/bootstrap.bundle.min.js"></script><!--부트스트랩-->
 <script src="/js/jquery.easing.min.js"></script><!--움직임-->
 <script src="/js/jquery.scrollbar.min.js"></script>
-<!--<script src="/js/validate.js"></script><!--폼알럿-->
 
 <script src="/js/owl.carousel.js"></script><!--슬라이드-->
 <script src="/js/aos.js"></script><!--스크롤-->
@@ -21,10 +20,10 @@
 <script src="/js/swiper.js"></script>
 
 <!-- 날짜 관련 라이브러리 -->
-<script src="/js/moment.min.js"></script>
-
-<script src="/js/modernizr.custom.js" type="text/javascript"></script>
-<script src="/js/pages.min.js"></script>
+<script type="text/javascript" src="/js/moment.min.js"></script>
+<script type="text/javascript" src="/js/modernizr.custom.js" ></script>
+<script type="text/javascript" src="/js/pages.min.js"></script>
+<script type="text/javascript" src="/js/dropzone.min.js"></script>
 
 <!-- date picker -->
 <script src="/js/flatpickr/flatpickr.min.js"></script>

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
@@ -85,6 +86,8 @@ public class ReportController {
 		dailyReport = dpService.getDailyReport(dailyReport);
 		log.debug("[getDailySales] 일매출자료 조회 : " + dailyReport);
 	
+		DailyReport reportImage = dpService.selectReportPicture(dailyReport);
+		
 		if (dailyReport == null) {
 			result.setCode("9999");
 			result.setMessage("마감 데이터가 없습니다.");
@@ -92,6 +95,7 @@ public class ReportController {
 			dailyReport.setCloseYn("Y");
 			result.setDailyReport(dailyReport);
 			result.setYearReport(yearReport);
+			if (reportImage != null) result.setReportImage(reportImage);
 			if (spm != null) result.setSalesPlanMonth(spm);
 			if (spm2 != null) result.setSalesPlanYear(spm2);
 		}
@@ -110,7 +114,7 @@ public class ReportController {
 		
 		return result;
 	}
-	
+	/*
 	@RequestMapping(value = "/insertDailyReport", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultVO insertDailyReport(HttpServletRequest req, ModelMap model, DailyReport dailyReport
@@ -123,6 +127,39 @@ public class ReportController {
 		dailyReport.setInputIp(Utils.getClientIpAddress(req));
 		dailyReport.setUpdateIp(Utils.getClientIpAddress(req));
         ResultVO result = dpService.insertDailyReport(dailyReport);
+		return result;
+	}*/
+	
+	@RequestMapping(value = "/insertDailyReport", method = RequestMethod.POST)
+	@ResponseBody
+	public ResultVO insertDailyReport(HttpServletRequest req, MultipartHttpServletRequest multi, ModelMap model
+			, @SessionAttribute("session") UserCustom session) throws IllegalStateException, IOException {
+		
+		DailyReport dailyReport = new DailyReport();
+		
+		String dailyRoomSalesCnt = multi.getParameter("dailyRoomSalesCnt").toString().replace(",", "");
+		String dailySalesTarget = multi.getParameter("dailySalesTarget").toString().replace(",", "");
+		String dailySalesActual = multi.getParameter("dailySalesActual").toString().replace(",", "");
+		String roomSales = multi.getParameter("roomSales").toString().replace(",", "");
+		String restaurantSales = multi.getParameter("restaurantSales").toString().replace(",", "");
+		String etcSales = multi.getParameter("etcSales").toString().replace(",", "");
+		
+		dailyReport.setCloseDate(multi.getParameter("closeDate"));
+		dailyReport.setDailyRoomSalesCnt(Integer.parseInt(dailyRoomSalesCnt));
+		dailyReport.setDailySalesTarget(Long.parseLong(dailySalesTarget));
+		dailyReport.setDailySalesActual(Long.parseLong(dailySalesActual));
+		dailyReport.setRoomSales(Long.parseLong(roomSales));
+		dailyReport.setRestaurantSales(Long.parseLong(restaurantSales));
+		dailyReport.setEtcSales(Long.parseLong(etcSales));
+		dailyReport.setRemark(multi.getParameter("remark"));
+		
+		dailyReport.setInputStaff(session.getUserId());
+		dailyReport.setUpdateStaff(session.getUserId());
+		dailyReport.setInputIp(Utils.getClientIpAddress(req));
+		dailyReport.setUpdateIp(Utils.getClientIpAddress(req));
+		
+        ResultVO result = dpService.insertDailyReport(dailyReport, multi);
+        
 		return result;
 	}
 	
@@ -137,7 +174,7 @@ public class ReportController {
 	 * @throws JSONException
 	 * @throws IOException
 	 * @throws ParseException 
-	 */
+	
 	@RequestMapping(value = "/readDailyReportExcel", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultVO readDailyReportExcel(HttpServletRequest req, ModelMap model)
@@ -164,7 +201,7 @@ public class ReportController {
 			
 		return result;
 	}
-	
+	 */
 	
 	/**
 	 * 엑셀 업로드 
@@ -177,7 +214,7 @@ public class ReportController {
 	 * @throws JSONException
 	 * @throws IOException
 	 * @throws ParseException 
-	 */
+	 
 	@RequestMapping(value = "/uploadDailyReport", method = RequestMethod.POST)
 	@ResponseBody
 	public ResultVO uploadDailyReport(HttpServletRequest req, ModelMap model
@@ -204,7 +241,7 @@ public class ReportController {
         } 
 			
 		return result;
-	}
+	}*/
 	
 	@PostMapping("/dailySales/sendCloseSms")  
 	@ResponseBody
@@ -231,6 +268,53 @@ public class ReportController {
 			map.put("message", "마감문자 전송 중 오류가 발생했습니다.");
 		}
 		
+		return map;
+	}
+	
+	/**
+	 * 일별마감 이미지 업로드
+	 * 
+	 * @param mreq
+	 * @param params
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	
+	@RequestMapping("/uploadReportImg")
+	@ResponseBody
+	public Map<String, Object> uploadReportImg(MultipartHttpServletRequest mreq, @RequestParam Map<String, Object> params)
+			throws IllegalStateException, IOException {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		try {
+			dpService.uploadReportImg(params, mreq);
+			map.put("result", true);
+
+		} catch (Exception e) {
+			map.put("result", false);
+			map.put("message", "파일 업로드중 오류가 발생하였습니다.");
+			e.printStackTrace();
+		}
+		return map;
+	} */
+	
+	/** 일별마감 이미지 삭제
+	 * 
+	 * @param params
+	 * @return
+	 */
+	@RequestMapping(value = "/deleteReportImg")
+	@ResponseBody
+	public Map<String, Object> deleteReportImg(@RequestParam Map<String, Object> params) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		try {
+			//memberService.deleteProfileImg(params);
+			map.put("result", true);
+		} catch (Exception e) {
+			map.put("result", false);
+			map.put("message", "파일 삭제 중 오류가 발생했습니다.");
+		}
 		return map;
 	}
 	

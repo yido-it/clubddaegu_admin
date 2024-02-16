@@ -17,5 +17,6 @@ public class ResultVO {
 	private DailyReport yearReport;
 	private SalesPlanMonth salesPlanMonth;
 	private SalesPlanMonth salesPlanYear;
+	private DailyReport reportImage;
 
 }
