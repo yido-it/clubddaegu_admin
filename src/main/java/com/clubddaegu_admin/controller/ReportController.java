@@ -64,6 +64,10 @@ public class ReportController {
 		ResultVO result = new ResultVO();
 		log.debug("[getDailySales] dailyReport : " + dailyReport);
 
+		dailyReport.setCloseDate(dailyReport.getSearchDt());
+		dailyReport.setCloseYn("Y");
+		DailyReport reportImage = dpService.selectReportPicture(dailyReport);
+		
 		// 월 계획  
 		SalesPlanMonth spm = new SalesPlanMonth();
 		spm.setPlanMonth(dailyReport.getSearchDt2().substring(0, 7));
@@ -86,19 +90,31 @@ public class ReportController {
 		dailyReport = dpService.getDailyReport(dailyReport);
 		log.debug("[getDailySales] 일매출자료 조회 : " + dailyReport);
 	
-		DailyReport reportImage = dpService.selectReportPicture(dailyReport);
-		
 		if (dailyReport == null) {
-			result.setCode("9999");
-			result.setMessage("마감 데이터가 없습니다.");
+			result.setDailyReport(null);
 		} else {
-			dailyReport.setCloseYn("Y");
 			result.setDailyReport(dailyReport);
 			result.setYearReport(yearReport);
 			if (reportImage != null) result.setReportImage(reportImage);
 			if (spm != null) result.setSalesPlanMonth(spm);
 			if (spm2 != null) result.setSalesPlanYear(spm2);
 		}
+		
+		return result;
+	}
+	
+	@RequestMapping("/getDailySalesImage")  
+	@ResponseBody
+	public ResultVO getDailySalesImage(HttpServletRequest req, DailyReport dailyReport) {
+
+		ResultVO result = new ResultVO();
+		
+		log.debug("[getDailySalesImage] dailyReport : " + dailyReport);
+
+		DailyReport reportImage = dpService.selectReportPicture(dailyReport);
+		
+		result.setReportImage(reportImage);
+		
 		return result;
 	}
 	
@@ -126,7 +142,6 @@ public class ReportController {
 	 * 일별마감처리
 	 * 
 	 * @param req
-	 * @param multi
 	 * @param model
 	 * @param session
 	 * @return
@@ -135,34 +150,40 @@ public class ReportController {
 	 */
 	@RequestMapping(value = "/insertDailyReport", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultVO insertDailyReport(HttpServletRequest req, MultipartHttpServletRequest multi, ModelMap model
+	public ResultVO insertDailyReport(HttpServletRequest req, ModelMap model
 			, @SessionAttribute("session") UserCustom session) throws IllegalStateException, IOException {
 		
 		DailyReport dailyReport = new DailyReport();
+
+		String imgUrl = req.getParameter("imgUrl").toString().replace(",", "");
+		String dailyRoomSalesCnt = req.getParameter("dailyRoomSalesCnt").toString().replace(",", "");
+		String dailySalesTarget = req.getParameter("dailySalesTarget").toString().replace(",", "");
+		String dailySalesActual = req.getParameter("dailySalesActual").toString().replace(",", "");
+		String roomSales = req.getParameter("roomSales").toString().replace(",", "");
+		String restaurantSales = req.getParameter("restaurantSales").toString().replace(",", "");
+		String etcSales = req.getParameter("etcSales").toString().replace(",", "");
 		
-		String dailyRoomSalesCnt = multi.getParameter("dailyRoomSalesCnt").toString().replace(",", "");
-		String dailySalesTarget = multi.getParameter("dailySalesTarget").toString().replace(",", "");
-		String dailySalesActual = multi.getParameter("dailySalesActual").toString().replace(",", "");
-		String roomSales = multi.getParameter("roomSales").toString().replace(",", "");
-		String restaurantSales = multi.getParameter("restaurantSales").toString().replace(",", "");
-		String etcSales = multi.getParameter("etcSales").toString().replace(",", "");
-		
-		dailyReport.setCloseDate(multi.getParameter("closeDate"));
+		dailyReport.setCloseDate(req.getParameter("closeDate"));
 		dailyReport.setDailyRoomSalesCnt(Integer.parseInt(dailyRoomSalesCnt));
 		dailyReport.setDailySalesTarget(Long.parseLong(dailySalesTarget));
 		dailyReport.setDailySalesActual(Long.parseLong(dailySalesActual));
 		dailyReport.setRoomSales(Long.parseLong(roomSales));
 		dailyReport.setRestaurantSales(Long.parseLong(restaurantSales));
 		dailyReport.setEtcSales(Long.parseLong(etcSales));
-		dailyReport.setRemark(multi.getParameter("remark"));
+		dailyReport.setRemark(req.getParameter("remark"));
 		
 		dailyReport.setInputStaff(session.getUserId());
 		dailyReport.setUpdateStaff(session.getUserId());
 		dailyReport.setInputIp(Utils.getClientIpAddress(req));
 		dailyReport.setUpdateIp(Utils.getClientIpAddress(req));
 		
-        ResultVO result = dpService.insertDailyReport(dailyReport, multi);
+		// URL에서 마지막 부분 추출
+        String[] parts = imgUrl.split("/");
+        String filename = parts[parts.length - 1];
         
+		dailyReport.setImgName(filename);
+        ResultVO result = dpService.insertDailyReport(dailyReport);
+
 		return result;
 	}
 
@@ -282,16 +303,18 @@ public class ReportController {
 	 * @return
 	 * @throws IllegalStateException
 	 * @throws IOException
-	
+	*/
 	@RequestMapping("/uploadReportImg")
 	@ResponseBody
 	public Map<String, Object> uploadReportImg(MultipartHttpServletRequest mreq, @RequestParam Map<String, Object> params)
 			throws IllegalStateException, IOException {
 
 		Map<String, Object> map = new HashMap<String, Object>();
-
+ 		ResultVO result = new ResultVO();
+ 		
 		try {
-			dpService.uploadReportImg(params, mreq);
+			result = dpService.uploadReportImg(params, mreq);
+			map.put("imgName", result.getData());
 			map.put("result", true);
 
 		} catch (Exception e) {
@@ -300,7 +323,7 @@ public class ReportController {
 			e.printStackTrace();
 		}
 		return map;
-	} */
+	} 
 	
 	/** 일별마감 이미지 삭제
 	 * 

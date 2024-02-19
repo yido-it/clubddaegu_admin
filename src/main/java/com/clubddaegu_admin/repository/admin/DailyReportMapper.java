@@ -30,5 +30,7 @@ public interface DailyReportMapper {
 	// 일별마감 이미지 삭제
 	public int deleteReportPicture(DailyReport dailyReport);
 	
+	// 일별마감 이미지 마감여부 변경
+	public int updateCloseYn(DailyReport dailyReport);
 
 }

@@ -80,7 +80,17 @@
 		SELECT *
 		FROM daily_report_image
 		WHERE close_date = #{closeDate}
+		AND close_yn = #{closeYn}
 		LIMIT 1
 	</select>
+	
+	<insert id="updateCloseYn">
+		/* 일별마감 이미지 마감여부 변경  */
+		UPDATE daily_report_image
+			SET close_yn = 'Y' 
+			WHERE close_date = #{closeDate}
+			AND img_name = #{imgName}
+			
+	</insert>
 	
 </mapper>

@@ -61,53 +61,19 @@ public class DailyReportService {
      * 
      * @param dailyReport
      * @return
-     * @throws IOException 
-     * @throws IllegalStateException 
+     * @throws IllegalStateException
+     * @throws IOException
      */
-    public ResultVO insertDailyReport(DailyReport dailyReport, MultipartHttpServletRequest multi) throws IllegalStateException, IOException {
+    public ResultVO insertDailyReport(DailyReport dailyReport) throws IllegalStateException, IOException {
        
 		ResultVO result = new ResultVO();
 		
 		try {
 			log.debug("[insertDailyReport] dailyReport : {}", dailyReport);
 			
-			Iterator<String> iter = multi.getFileNames();	
-			while(iter.hasNext()) {
-				// 다음 file[n] 값을 Multipartfile 객체로 생성
-				MultipartFile mFile = multi.getFile(iter.next());			
-				 
-				// mFile의 파일이름 가져옴
-				log.debug("[insertDailyReport] OriginalFilename : {}", mFile.getOriginalFilename());
-				
-				String orgFileNm = mFile.getOriginalFilename();
-				String extNm = orgFileNm.substring(orgFileNm.lastIndexOf(".") + 1, orgFileNm.length()).toLowerCase();
-				String newFileNm = System.currentTimeMillis() + "." + extNm;
-				
-				File sameFile = new File(orgFileNm);					// 똑같은 이름의 파일 객체 생성 (file_name.jpg)
-				String filePath = sameFile.getAbsolutePath();			// 실행 중인 working directory + File에 전달한 경로값 (C:\folder_name\file_name.jpg)
-				File tmpFile = new File(filePath);						// 절대경로로 다시 파일 객체 생성
-				mFile.transferTo(tmpFile);								// 임시파일 객체에 mFile을 복사하면 해당 경로에 파일이 만들어짐
-				
-				Path srcPath = Paths.get(filePath);						// String을 Path 객체로 만들어줌
-			    String mimeType = Files.probeContentType(srcPath);		// 파일 경로에 있는 Content-Type(파일 유형) 확인
-			    mimeType = (mimeType == null ? "" : mimeType);			// 확장자가 없는 경우 null을 반환
-				
-			    String folderNm = "report/" + multi.getParameter("closeDate") + "/";	
-				log.debug("[insertDailyReport] folderNm : {}", folderNm);		
-			    
-			    // AWSFileUtil.uploadFile(folderNm, newFileNm, mFile);	// 생성할 폴더명, 새 파일 이름, 복사될 파일 경로
-				AWSFileUtil.uploadFile(folderNm, newFileNm, extNm, tmpFile, mimeType);	// 생성할 폴더명, 새 파일 이름, 복사될 파일, 파일타입
-										
-				// 업로드 후 임시파일 삭제
-				if(tmpFile.exists()) tmpFile.delete();
-				
-				dailyReport.setCloseDate(multi.getParameter("closeDate").toString());
-				dailyReport.setImgPath(folderNm);
-				dailyReport.setImgName(newFileNm);
-				dpMapper.insertReportPicture(dailyReport);
-				
-			}		
-            
+			// 이미지 마감여부 변경 
+			dpMapper.updateCloseYn(dailyReport);
+			
 			// 객실단가 
 			double tmpRoomPrice = dailyReport.getRoomSales() / dailyReport.getDailyRoomSalesCnt();
 			log.debug("tmpRoomPrice : " + tmpRoomPrice);
@@ -467,9 +433,12 @@ public class DailyReportService {
      * @param params
      * @param mreq
      * @throws Exception
-    
-	public void uploadReportImg(Map<String, Object> params, MultipartHttpServletRequest mreq) throws Exception {
-		Iterator<String> iter = mreq.getFileNames();	
+    	*/
+	public ResultVO uploadReportImg(Map<String, Object> params, MultipartHttpServletRequest mreq) throws Exception {
+
+ 		ResultVO result = new ResultVO();
+ 		Iterator<String> iter = mreq.getFileNames();	
+ 		
 		while(iter.hasNext()) {
 			// 다음 file[n] 값을 Multipartfile 객체로 생성
 			MultipartFile mFile = mreq.getFile(iter.next());			
@@ -496,15 +465,34 @@ public class DailyReportService {
 			// 업로드 후 임시파일 삭제
 			if(tmpFile.exists()) tmpFile.delete();
 			
+			// 이미 같은날짜 이미지 있으면 삭제 후 재업로드..
+			DailyReport dailyReport2 = new DailyReport();
+			dailyReport2.setCloseYn("N");
+			dailyReport2.setCloseDate(params.get("closeDate").toString());
+			
+			// 해당날짜로 이미지조회 (마감안된)
+			dailyReport2 = dpMapper.selectReportPicture(dailyReport2);
+			log.debug("[uploadReportImg] 마감되지않은 이미지조회 > " + dailyReport2);
+			
+			if (dailyReport2 != null) {
+				// 삭제
+				dpMapper.deleteReportPicture(dailyReport2);
+				log.debug("[uploadReportImg] 마감되지않은 이미지 삭제처리");
+			}
+
 			DailyReport dailyReport = new DailyReport();
 			dailyReport.setCloseDate(params.get("closeDate").toString());
 			dailyReport.setImgPath(folderNm);
 			dailyReport.setImgName(newFileNm);
-			
+
+			log.debug("[uploadReportImg] imgUrl : " + Globals.endPoint + "/" + Globals.bucketName + "/" + folderNm + newFileNm);
+			result.setData(Globals.endPoint + "/" + Globals.bucketName + "/" + folderNm + newFileNm);
 			dpMapper.insertReportPicture(dailyReport);
 			
 		}		
-	}	*/
+		
+		return result;
+	}
 	
 	public DailyReport selectReportPicture(DailyReport dailyReport) {
 

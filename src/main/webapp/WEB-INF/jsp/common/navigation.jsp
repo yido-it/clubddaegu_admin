@@ -48,6 +48,13 @@ $(document).ready(function(){
 	    
 	}
 });
+
+function fnLogout() {
+
+	if(confirm('로그아웃 하시겠습니까?')) {
+		location.href="/logout"
+	}
+}
 </script>
 <div class="header"> 
 	<div class=""> 
@@ -63,7 +70,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 	<div>
-		<a href="/logout">
+		<a onClick="fnLogout()">
 			<i class="fa-solid fa-power-off"></i>
 		</a>
 	</div>
