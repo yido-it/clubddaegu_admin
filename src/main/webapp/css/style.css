@@ -1829,7 +1829,7 @@ input:disabled {
     background-color: #00263e;
     border: 0;
     color: #fff;
-    padding: 10px 10px;
+    padding: 9px 10px;
     font-size: 14px;
 }
 .main_list {
@@ -2004,6 +2004,16 @@ input:disabled {
  
 /*********************************** dy 모바일480 *************************************/
 @media screen and  (max-width: 481px) {
+	.modal .btn_admin {
+	    padding: 5px 10px;
+	}
+	span.span_title.mt-1.pl-3,
+	.mt-2.col-6 {
+	    padding-left: 0 !important;
+	}
+	.modal-header .close {
+	    font-size: 14px;
+	}
 	input#rememberMe {
 	    width: auto !important;
 	}
@@ -2043,9 +2053,16 @@ input:disabled {
 	div#closeSmsModal .col-6 .mt-2.pl-2 {
 		padding-left: 0 !important;
 	}
-	div#reportTable .col-7 .reportRow:last-child .col-3 {
+	div#reportTable .row.reportRow:nth-child(5) .col-3,
+	div#reportTable .row:nth-child(6) .col-3 {
 	    flex: 0 0 100%;
 	    max-width: 100%;
+	}
+	input#searchDt {
+	    width: 145px !important;
+	}
+	div#reportTable .row:nth-child(6) .col-9 {
+		padding: 10px 0px;
 	}
 	div#reportTable .col-9.reportContent {
 	    max-width: 100%;
@@ -2062,7 +2079,6 @@ input:disabled {
 	input {
 		margin: 0px 10px;
 		margin-left: 10px !important;		
-    	width: 100% !important;
 	}
 	input#searchDt {
     	/*margin-top: 10px !important;*/

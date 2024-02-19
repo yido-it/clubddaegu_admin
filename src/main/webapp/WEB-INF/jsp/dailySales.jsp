@@ -16,10 +16,7 @@
 display:inline-block;width:400px;height:35px;padding-left:10px;margin-right:5px;line-height:35px;
 border:1px solid #e1e1e1;background-color:#fff;vertical-align:middle;
 }
-.writeBox .btn_file {
-display:inline-block;background:#707070;width:150px;height:35px;line-height:35px;
-text-align:center;vertical-align:middle;color:#fff;font-size:12px;
-}
+.writeBox .btn_file {display: inline-block; background: #707070; width: 150px; text-align: center;} 
 .writeBox .btn_file.file2 {background:#d8d8d8;width:150px;color:#606060;border:1px solid #a0a0a0;}
 .writeBox input[type="file"] {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 
@@ -35,109 +32,104 @@ text-align:center;vertical-align:middle;color:#fff;font-size:12px;
 				<div class="main_list">
 				
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 mb-3">
 							<span class="span_title fl">일별마감 &nbsp;</span>
 						</div>
 					</div>
 					
-					<div class="" >
-						<div class="col-md-7">
-							<div class="row">
-							    <div class="col-4">
-									<input class="form-control fl text-center m-0" type="date" id="searchDt" style="width: 200px;">
-								</div>
-							
-								<div class="col-8">
-									<button type="button" class="btn_admin btn_send" id="btnCloseSms" data-toggle="modal" data-target="#closeSmsModal" data-whatever="@mdo" style="float:right;">
-										마감문자
-									</button>
-									<button type="button" class="btn_admin" id="btnCancel" onclick="cancelCloseDailySales()" style="float:right;">
-										마감취소
-									</button>
-									<button type="button" class="btn_admin" id="btnClose" onclick="insertDailyReport()" style="float:right;">
-										마감
-									</button>
-								</div>
-							</div>
-						</div>
+					<div class="row width100">
+					    <div class="col-7">
+							<input class="form-control fl text-center m-0" type="date" id="searchDt" style="width: 200px;">
+							<button type="button" class="btn_admin btn_send" id="btnCloseSms" data-toggle="modal" data-target="#closeSmsModal" data-whatever="@mdo" style="float:right;">
+								마감문자
+							</button>
+							<button type="button" class="btn_admin" id="btnCancel" onclick="cancelCloseDailySales()" style="float:right;">
+								마감취소
+							</button>
+							<button type="button" class="btn_admin" id="btnClose" onclick="insertDailyReport()" style="float:right;">
+								마감
+							</button>
+						</div>						
 					</div>
 						
-					<div>
-						<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
-					
-						<div class="row mt-3 writeBox" id="reportTable">
-							<div class="col-7">
-								<div class="row reportRow" style="border-top : 1px solid #80808085;">
-									<div class="col-3 reportTitle"><p>마감일자</p></div>
-									<div class="col-3 reportContent text-center">
-										<p id="viewCloseDate"></p>
-										<input type="hidden" name="closeDate" id="closeDate">
-									</div>
-									
-									<div class="col-3 reportTitle"><p>일 판매객실수</p></div>
-									<div class="col-3 reportContent">
-										<input type="text" id="dailyRoomSalesCnt" name="dailyRoomSalesCnt" onkeyup="setAddComma(this)">
-									</div>
-									
-								</div>
-								<div class="row reportRow">
-									<div class="col-3 reportTitle"><p>당일 매출액 목표</p></div>
-									<div class="col-3 reportContent">
-										<input type="text" id="dailySalesTarget" name="dailySalesTarget" onkeyup="setAddComma(this)">
-									</div>
-									
-									<div class="col-3 reportTitle"><p>당일 매출액 실적</p></div>
-									<div class="col-3 reportContent">
-										<input type="text" id="dailySalesActual" name="dailySalesActual" onkeyup="setAddComma(this)">
-									</div>
-								</div>
-								<div class="row reportRow">
-									<div class="col-3 reportTitle"><p>객실매출</p></div>
-									<div class="col-3 reportContent">
-										<input type="text" id="roomSales" name="roomSales" onkeyup="setAddComma(this)">
-									</div>
-									
-									<div class="col-3 reportTitle"><p>식음매출</p></div>
-									<div class="col-3 reportContent">
-										<input type="text" id="restaurantSales" name="restaurantSales" onkeyup="setAddComma(this)">
-									</div>
-								</div>
-								<div class="row reportRow">
-									<div class="col-3 reportTitle"><p>기타매출</p></div>
-									<div class="col-3 reportContent">
-										<input type="text" id="etcSales" name="etcSales" onkeyup="setAddComma(this)">
-									</div>
-									
-									<div class="col-3 reportTitle none-data"></div>
-									<div class="col-3 reportContent none-data"></div>
-								</div>	
-								
-								<div class="row reportRow">
-									<div class="col-3 reportTitle"><p>비고</p></div>
-									<div class="col-9 reportContent">
-										<textarea rows="5" class="form-control" id="remark" name="remark"></textarea>
-									</div>
-
-								</div>		
-								
-								<div class="row" id="selectImage">
-									<div class="col-3 reportTitle"><p>이미지</p></div>
-									<div class="col-9 reportContent">
-										<input type="text" class="fileName" id="imageFileName" style="font-size: 15px;" readonly="readonly">
-										
-										<label for="uploadImage" class="btn_file" style="margin-bottom:0px">이미지찾기</label>  
-										<input type="file" id="uploadImage" name="uploadImage" class="uploadBtn">
-									</div>
-								</div>		
-								<div class="row" >
-									<div class="col" id="reportImage">
-									</div>
-								</div>		      
-
-							</div>
-						</div>	
-						</form>
+					<div class="row">
+						<div class="col-7">
 						
+							<form id="fileForm" action="fileUpload" method="post" enctype="multipart/form-data">
+						
+							<div class="row mt-3 writeBox" id="reportTable">
+								<div class="col-12">
+									<div class="row reportRow" style="border-top : 1px solid #80808085;">
+										<div class="col-3 reportTitle"><p>마감일자</p></div>
+										<div class="col-3 reportContent text-center">
+											<p id="viewCloseDate"></p>
+											<input type="hidden" name="closeDate" id="closeDate">
+										</div>
+										
+										<div class="col-3 reportTitle"><p>일 판매객실수</p></div>
+										<div class="col-3 reportContent">
+											<input type="text" id="dailyRoomSalesCnt" name="dailyRoomSalesCnt" onkeyup="setAddComma(this)">
+										</div>
+										
+									</div>
+									<div class="row reportRow">
+										<div class="col-3 reportTitle"><p>당일 매출액 목표</p></div>
+										<div class="col-3 reportContent">
+											<input type="text" id="dailySalesTarget" name="dailySalesTarget" onkeyup="setAddComma(this)">
+										</div>
+										
+										<div class="col-3 reportTitle"><p>당일 매출액 실적</p></div>
+										<div class="col-3 reportContent">
+											<input type="text" id="dailySalesActual" name="dailySalesActual" onkeyup="setAddComma(this)">
+										</div>
+									</div>
+									<div class="row reportRow">
+										<div class="col-3 reportTitle"><p>객실매출</p></div>
+										<div class="col-3 reportContent">
+											<input type="text" id="roomSales" name="roomSales" onkeyup="setAddComma(this)">
+										</div>
+										
+										<div class="col-3 reportTitle"><p>식음매출</p></div>
+										<div class="col-3 reportContent">
+											<input type="text" id="restaurantSales" name="restaurantSales" onkeyup="setAddComma(this)">
+										</div>
+									</div>
+									<div class="row reportRow">
+										<div class="col-3 reportTitle"><p>기타매출</p></div>
+										<div class="col-3 reportContent">
+											<input type="text" id="etcSales" name="etcSales" onkeyup="setAddComma(this)">
+										</div>
+										
+										<div class="col-3 reportTitle none-data"></div>
+										<div class="col-3 reportContent none-data"></div>
+									</div>	
+									
+									<div class="row reportRow">
+										<div class="col-3 reportTitle"><p>비고</p></div>
+										<div class="col-9 reportContent">
+											<textarea rows="5" class="form-control border-0" id="remark" name="remark"></textarea>
+										</div>
+	
+									</div>		
+									
+									<div class="row" id="selectImage">
+										<div class="col-3 reportTitle"><p>이미지</p></div>
+										<div class="col-9 reportContent" style="justify-content: flex-end;">
+											<input type="text" class="fileName border-0" id="imageFileName" style="font-size: 15px;" readonly="readonly">
+											
+											<label for="uploadImage" class="btn_file btn_admin" style="margin-bottom:0px">이미지찾기</label>  
+											<input type="file" id="uploadImage" name="uploadImage" class="uploadBtn">
+										</div>
+									</div>		
+									<div class="row" >
+										<div class="col" id="reportImage">
+										</div>
+									</div>		      
+	
+								</div>
+							</div>	
+							</form>
+						</div>						
 					</div>	
 				</div>
 			</div>
