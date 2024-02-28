@@ -61,36 +61,36 @@
 										
 										<div class="col-3 reportTitle"><p>일 판매객실수</p></div>
 										<div class="col-3 reportContent">
-											<input type="number" id="dailyRoomSalesCnt" name="dailyRoomSalesCnt" > <!-- onkeyup="setAddComma(this)" -->
+											<input type="text" id="dailyRoomSalesCnt" name="dailyRoomSalesCnt" onkeyup="setAddComma(this)" />
 										</div>
 										
 									</div>
 									<div class="row reportRow">
 										<div class="col-3 reportTitle"><p>당일 매출액 목표</p></div>
 										<div class="col-3 reportContent">
-											<input type="number" id="dailySalesTarget" name="dailySalesTarget">
+											<input type="text" id="dailySalesTarget" name="dailySalesTarget" onkeyup="setAddComma(this)" />
 										</div>
 										
 										<div class="col-3 reportTitle"><p>당일 매출액 실적</p></div>
 										<div class="col-3 reportContent">
-											<input type="number" id="dailySalesActual" name="dailySalesActual">
+											<input type="text" id="dailySalesActual" name="dailySalesActual" onkeyup="setAddComma(this)" />
 										</div>
 									</div>
 									<div class="row reportRow">
 										<div class="col-3 reportTitle"><p>객실매출</p></div>
 										<div class="col-3 reportContent">
-											<input type="number" id="roomSales" name="roomSales">
+											<input type="text" id="roomSales" name="roomSales" onkeyup="setAddComma(this)" />
 										</div>
 										
 										<div class="col-3 reportTitle"><p>식음매출</p></div>
 										<div class="col-3 reportContent">
-											<input type="number" id="restaurantSales" name="restaurantSales" >
+											<input type="text" id="restaurantSales" name="restaurantSales" onkeyup="setAddComma(this)" />
 										</div>
 									</div>
 									<div class="row reportRow">
 										<div class="col-3 reportTitle"><p>기타매출</p></div>
 										<div class="col-3 reportContent">
-											<input type="number" id="etcSales" name="etcSales" >
+											<input type="text" id="etcSales" name="etcSales" onkeyup="setAddComma(this)" />
 										</div>
 										
 										<div class="col-3 reportTitle none-data"></div>
@@ -136,6 +136,7 @@
 <script>
 let table;
 
+openModal('loadingModal');
 /* 마감문자 전송용 변수 */
 var smsTable;
 
@@ -316,14 +317,14 @@ function initDailyReportTable(pData) {
 
 		$('#viewCloseDate').text(setDateCell(reportData.closeDate));
 		$('#closeDate').val(reportData.closeDate);
-		$('#dailyRoomSalesCnt').val(reportData.dailyRoomSalesCnt);
-		$('#dailySalesTarget').val(reportData.dailySalesTarget);
-		$('#dailySalesActual').val(reportData.dailySalesActual);
-		$('#roomSales').val(reportData.roomSales);
-		$('#restaurantSales').val(reportData.restaurantSales);
-		$('#etcSales').val(reportData.etcSales);
+		$('#dailyRoomSalesCnt').val(setCountCell(reportData.dailyRoomSalesCnt));
+		$('#dailySalesTarget').val(setCountCell(reportData.dailySalesTarget));
+		$('#dailySalesActual').val(setCountCell(reportData.dailySalesActual));
+		$('#roomSales').val(setCountCell(reportData.roomSales));
+		$('#restaurantSales').val(setCountCell(reportData.restaurantSales));
+		$('#etcSales').val(setCountCell(reportData.etcSales));
 		$('#remark').val(reportData.remark);
-	
+		
    		$('#btnClose').hide();
    		$('#btnCancel').show();
    		$('#btnSms').show();
