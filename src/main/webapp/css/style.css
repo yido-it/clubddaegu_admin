@@ -347,6 +347,15 @@ i.fa-solid.fa-power-off {
 	}
 }
 
+@media (max-width: 992px) {
+	.modal-dialog.modal-dialog-centered {
+	    width: 100% !important;
+	    margin: 0 !important;
+	    padding: 10%;
+	}
+}
+
+
 @media (min-width: 992px) {
 	.link-a {
 		font-size: 1rem;
@@ -1980,6 +1989,7 @@ input:disabled {
 	
  /*********************************  타블렛 세로 작은사이즈*******************************************/
 @media all and (min-width:481px) and (max-width:767px) {  
+	 
 	.ul_menu li{width:31.9%;margin-bottom:10px}
 	.div_food h4{font-size:18px}
 	.div_food p{font-size:14px}  
@@ -2001,9 +2011,10 @@ input:disabled {
 	 
 
 } 
- 
+
 /*********************************** dy 모바일480 *************************************/
 @media screen and  (max-width: 481px) {
+	
 	.modal .btn_admin {
 	    padding: 5px 10px;
 	}
