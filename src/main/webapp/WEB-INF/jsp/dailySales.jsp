@@ -136,7 +136,6 @@
 <script>
 let table;
 
-openModal('loadingModal');
 /* 마감문자 전송용 변수 */
 var smsTable;
 
