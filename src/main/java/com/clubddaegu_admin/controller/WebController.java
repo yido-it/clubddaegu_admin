@@ -34,10 +34,13 @@ public class WebController {
 	}
 	
 	@GetMapping("/login")
-	public String login(@RequestParam(required = false) String error, HttpServletRequest request, Model model)
+	public String login(@RequestParam(value = "error", required = false) String error
+						, @RequestParam(value = "exception", required = false) String exception
+						, Model model)
 				throws IOException {
+		/*
 		String userId = "", userPw = "";
-	
+		
 		if (null != error) {
 			Exception exception = (Exception) request.getSession().getAttribute("SPRING_SECURITY_LAST_EXCEPTION");
 			if (exception instanceof LockedException || exception instanceof BadCredentialsException) {
@@ -51,7 +54,10 @@ public class WebController {
 			model.addAttribute("errorMessage", error);
 			model.addAttribute("userId", userId);
 			model.addAttribute("userPw", userPw);
-		}
+		}*/
+
+		model.addAttribute("error", error);
+		model.addAttribute("exception", exception);
 				
 		return "/login";
 	}

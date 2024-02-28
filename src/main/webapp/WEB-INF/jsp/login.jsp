@@ -84,28 +84,34 @@
 
 </style>
 <script>
-	if('${sessionScope.session}' != '') {
-		location.href = '/'
-	}
-	$("#loginSubmit").on("click", function(){
-	    var flag = true;
-	    $("#form-login input").each(function(){
-			if(this.id != 'rememberMe' && $(this).val() == "") {
-				console.log(this.id);
-				alert("아이디 / 비밀번호를 입력해 주세요.");
-				flag = false;
-				return false;
-			}
-	    })
-	    if(flag) $("#form-login").submit();
-	})
-	
-	var error = "${errorMessage}";
-	console.log(error);
-	// alert(error);
-	
-	$('#password').on('keyup', function(e){
-		if(e.keyCode == 13) $('#loginSubmit').trigger('click');
-	});
+
+// ┌───────────── 로그인 실패처리 ─────────────┐
+//var error = "${exception}";
+//console.log(error);
+//alert(error);
+
+let errorMessage = "<c:out value='${exception}'/>";
+if (errorMessage!='') alert(errorMessage);
+// └───────────── 로그인 실패처리 ─────────────┘
+
+if('${sessionScope.session}' != '') {
+	location.href = '/'
+}
+$("#loginSubmit").on("click", function(){
+    var flag = true;
+    $("#form-login input").each(function(){
+		if(this.id != 'rememberMe' && $(this).val() == "") {
+			console.log(this.id);
+			alert("아이디 / 비밀번호를 입력해 주세요.");
+			flag = false;
+			return false;
+		}
+    })
+    if(flag) $("#form-login").submit();
+})
+
+$('#password').on('keyup', function(e){
+	if(e.keyCode == 13) $('#loginSubmit').trigger('click');
+});
 </script>	
 </html>

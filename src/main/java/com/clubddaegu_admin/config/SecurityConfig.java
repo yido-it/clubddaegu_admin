@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.clubddaegu_admin.security.AdminUserDetailsService;
 import com.clubddaegu_admin.security.CustomAuthenticationProvider;
@@ -20,10 +18,12 @@ import com.clubddaegu_admin.security.MyAuthenticationSuccessHandler;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    
+	@Autowired
+    private CustomAuthFailureHandler customAuthFailureHandler;
 
     @Autowired
     private AdminUserDetailsService adminUserDetailsService;
- 
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -73,7 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("userId")
                 .passwordParameter("password")
                 .successHandler(myAuthenticationSuccessHandler())
-                .failureUrl("/login?error")
+               // .failureUrl("/login?error")
+                .failureHandler(customAuthFailureHandler) // 실패 핸들러 
                 .permitAll()
                 .and()
                 .rememberMe()
