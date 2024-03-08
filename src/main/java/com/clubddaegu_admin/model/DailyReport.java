@@ -24,6 +24,7 @@ public class DailyReport {
 	private long restaurantSales;		// 식음매출
 	private long etcSales;				// 기타매출
 	private long monthSales;			// 당월실적
+	private long monthSum;// 월매출
 	private String remark;				// 비고
 	private String inputStaff;		
 	private String inputDatetime;		
@@ -36,6 +37,7 @@ public class DailyReport {
 	private String searchDt;		// 검색일 YYYYMMDD
 	private String searchDt2;		// 검색일 YYYY-MM-DD
 	private String planYear;		// YYYY
+	private String planMonth;		// YYYYMM
 	private String closeYn; 		// 마감여부 > Y : 마감 , N : 미마감
 	private long yearlySalesActual;	// 연간실적  
 	private String logDiv;			// I : insert , U : update , D : delete

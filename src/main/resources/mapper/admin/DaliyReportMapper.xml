@@ -9,6 +9,14 @@
 		 WHERE close_date = #{searchDt} 	 
 	</select>
 	
+	<select id="getMonthReport" resultType="DailyReport">
+		/* 월매출 */
+		SELECT sum(daily_sales_actual) as monthSum
+		  FROM daily_report
+		 WHERE close_date LIKE CONCAT(#{planMonth}, '%') 	 
+	</select>
+	
+	
 	<delete id="deleteDailyReport">
 		/* 일매출 삭제 */
 		DELETE FROM daily_report

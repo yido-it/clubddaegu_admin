@@ -55,6 +55,10 @@ public class DailyReportService {
     public DailyReport getYearReport(DailyReport dp) {
     	return dpMapper.getYearReport(dp);
     }
+    
+    public DailyReport getMonthReport(DailyReport dp) {
+    	return dpMapper.getMonthReport(dp);
+    }
 
     /**
      * 일매출 데이터 insert

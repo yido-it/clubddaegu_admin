@@ -16,6 +16,8 @@ public interface DailyReportMapper {
 	
 	public DailyReport getYearReport(DailyReport dailyReport);
 	
+	public DailyReport getMonthReport(DailyReport dailyReport);
+	
 	public int insertDailyReport(DailyReport dailyReport);
 	
 	public int insertDailyReportLog(DailyReport dailyReport);

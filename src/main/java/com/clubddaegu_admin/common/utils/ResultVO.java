@@ -15,6 +15,7 @@ public class ResultVO {
 	private Object sub;
 	private DailyReport dailyReport;
 	private DailyReport yearReport;
+	private DailyReport monthReport;
 	private SalesPlanMonth salesPlanMonth;
 	private SalesPlanMonth salesPlanYear;
 	private DailyReport reportImage;

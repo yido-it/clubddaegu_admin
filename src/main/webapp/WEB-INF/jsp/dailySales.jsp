@@ -300,12 +300,14 @@ function initImage() {
 function initDailyReportTable(pData) {
 	
 	let reportData = pData.dailyReport;
+	let monthReport = pData.monthReport;
 	let yearReport = pData.yearReport;
 	let mPlanData = pData.salesPlanMonth;
 	let yPlanData = pData.salesPlanYear;
 	let reportImage = pData.reportImage;
 	
 	console.log('initDailyReportTable > reportData :', reportData);
+	console.log('initDailyReportTable > monthReport :', monthReport);
 	console.log('initDailyReportTable > yearReport :', yearReport);
 	console.log('initDailyReportTable > mPlanData :', mPlanData);
 	console.log('initDailyReportTable > yPlanData :', yPlanData);
@@ -338,8 +340,9 @@ function initDailyReportTable(pData) {
    		mRoomPrice = reportData.roomPrice;  				// 객실단가
    		mRestaurantSales = reportData.restaurantSales;  	// 식음매출
    		mEtcSales = reportData.etcSales;  					// 기타매출
-   		mMonthSales = reportData.monthSales;  				// 월 실적
-   
+   		mMonthSales = monthReport.monthSum;  				// 월 실적
+   	 
+   		console.log('당일 매출액 실적 : ' , mDailySalesActual);
    		mRoomRevenue = mPlanData.roomRevenue == null ? 0 : mPlanData.roomRevenue;	// 월 객실 목표
    		mTotalFood = mPlanData.totalFood == null ? 0 : mPlanData.totalFood;			// 월 식음 목표
    		mTotalOther = mPlanData.totalOther == null ? 0 : mPlanData.totalOther;		// 월 기타 목표
@@ -347,6 +350,7 @@ function initDailyReportTable(pData) {
    		mMonthPlan = mRoomRevenue + mTotalFood + mTotalOther; // 월 목표
    		
    		mYearSales = yearReport.yearlySalesActual;	// 연 실적
+   		console.log('당월 실적  : ' , mMonthSales);
    		yRoomRevenue = yPlanData.roomRevenue == null ? 0 : yPlanData.roomRevenue;	// 연 객실 목표
    		yTotalFood = yPlanData.totalFood == null ? 0 : yPlanData.totalFood;			// 연 식음 목표
    		yTotalOther = yPlanData.totalOther == null ? 0 : yPlanData.totalOther;		// 연 기타 목표

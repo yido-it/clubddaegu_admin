@@ -86,6 +86,13 @@ public class ReportController {
 		yearReport = dpService.getYearReport(yearReport);
 		log.debug("[getDailySales] 연간실적 : " + yearReport);
 		
+		// 월실적 
+		DailyReport yearReport2 = new DailyReport();
+		yearReport2.setPlanMonth(dailyReport.getSearchDt().substring(0, 6));
+		yearReport2 = dpService.getMonthReport(yearReport2);
+		log.debug("[getDailySales] 월실적 : " + yearReport2);
+		
+		
 		// 일매출
 		dailyReport = dpService.getDailyReport(dailyReport);
 		log.debug("[getDailySales] 일매출자료 조회 : " + dailyReport);
@@ -94,6 +101,7 @@ public class ReportController {
 			result.setDailyReport(null);
 		} else {
 			result.setDailyReport(dailyReport);
+			result.setMonthReport(yearReport2);
 			result.setYearReport(yearReport);
 			if (reportImage != null) result.setReportImage(reportImage);
 			if (spm != null) result.setSalesPlanMonth(spm);
