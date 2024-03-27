@@ -80,18 +80,24 @@ public class ReportController {
 		spm2 = spmService.getSalesPlanYear(spm2);
 		log.debug("[getDailySales] 년 계획 : " + spm2);
 		
+		// ┌─────────── 월 실적 + 연간 실적 ───────────┐
 		// 연간실적 
 		DailyReport yearReport = new DailyReport();
+		DailyReport monthReport = new DailyReport();
+		yearReport.setCloseDate(dailyReport.getSearchDt());
+		yearReport.setPlanMonth(dailyReport.getSearchDt().substring(0, 6));
 		yearReport.setPlanYear(dailyReport.getSearchDt2().substring(0, 4));
+		monthReport = dpService.getMonthReport(yearReport);
+		log.debug("[getDailySales] 월실적 : " + monthReport);
 		yearReport = dpService.getYearReport(yearReport);
 		log.debug("[getDailySales] 연간실적 : " + yearReport);
 		
 		// 월실적 
-		DailyReport yearReport2 = new DailyReport();
-		yearReport2.setPlanMonth(dailyReport.getSearchDt().substring(0, 6));
-		yearReport2 = dpService.getMonthReport(yearReport2);
-		log.debug("[getDailySales] 월실적 : " + yearReport2);
-		
+		// 조회날짜 기준으로 해당 날짜 까지만 합계 처리
+		//DailyReport yearReport2 = new DailyReport();
+		//yearReport2.setCloseDate(dailyReport.getSearchDt());
+		//yearReport2.setPlanMonth(dailyReport.getSearchDt().substring(0, 6));
+		// └─────────── 월 실적 + 연간 실적 ───────────┘
 		
 		// 일매출
 		dailyReport = dpService.getDailyReport(dailyReport);
@@ -101,7 +107,7 @@ public class ReportController {
 			result.setDailyReport(null);
 		} else {
 			result.setDailyReport(dailyReport);
-			result.setMonthReport(yearReport2);
+			result.setMonthReport(monthReport);
 			result.setYearReport(yearReport);
 			if (reportImage != null) result.setReportImage(reportImage);
 			if (spm != null) result.setSalesPlanMonth(spm);

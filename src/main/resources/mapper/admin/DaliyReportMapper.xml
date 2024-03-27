@@ -14,6 +14,9 @@
 		SELECT sum(daily_sales_actual) as monthSum
 		  FROM daily_report
 		 WHERE close_date LIKE CONCAT(#{planMonth}, '%') 	 
+		 <if test="closeDate != null">
+		 AND close_date <![CDATA[<=]]> #{closeDate}
+		 </if>
 	</select>
 	
 	
@@ -27,7 +30,10 @@
 		/* 연간실적 */
 		SELECT SUM(daily_sales_actual) AS yearlySalesActual
 		  FROM daily_report
-		 WHERE close_date LIKE CONCAT(#{planYear}, '%') 
+		 WHERE close_date LIKE CONCAT(#{planYear}, '%')  
+		 <if test="closeDate != null">
+		 AND close_date <![CDATA[<=]]> #{closeDate}
+		 </if>
 	</select>
 
 

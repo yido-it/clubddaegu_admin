@@ -97,6 +97,22 @@
 										<div class="col-3 reportContent none-data"></div>
 									</div>	
 									
+									<!-- 마감 이후에 보여지는 자료 -->
+									<div class="row reportRow" id="sumSales" style="display:none">
+										<div class="col-3 reportTitle"><p>월 매출 누계</p></div>
+										<div class="col-3 reportContent">
+										<!-- 	<p id="sumMonthSales"></p>  -->
+											<input type="text" id="sumMonthSales" disabled />
+										</div>
+										
+										<div class="col-3 reportTitle"><p>연 매출 누계</p></div>
+										<div class="col-3 reportContent">
+										<!-- 	<p id="sumYearSales"></p>  -->
+											<input type="text" id="sumYearSales" disabled />
+										</div>
+									</div>
+									<!-- // 마감 이후에 보여지는 자료 -->
+									
 									<div class="row reportRow">
 										<div class="col-3 reportTitle"><p>비고</p></div>
 										<div class="col-9 reportContent">
@@ -326,6 +342,9 @@ function initDailyReportTable(pData) {
 		$('#etcSales').val(setCountCell(reportData.etcSales));
 		$('#remark').val(reportData.remark);
 		
+		// 월매출누계, 연매출누계
+		$('#sumSales').css('display', '');
+		
    		$('#btnClose').hide();
    		$('#btnCancel').show();
    		$('#btnSms').show();
@@ -358,6 +377,8 @@ function initDailyReportTable(pData) {
    		mYearPlan = yRoomRevenue + yTotalFood + yTotalOther;	// 연 목표
    		// end.
    		
+   		$('#sumMonthSales').val(setCountCell(mMonthSales));	// 월매출누계
+   		$('#sumYearSales').val(setCountCell(mYearSales));	// 월매출누계
    
    		// ┌───────────── 일별마감 이미지 ─────────────┐
    		if (reportImage != null) {
@@ -396,6 +417,11 @@ function initDailyReportTable(pData) {
    		$('#selectImage').css('display', '');
    		$('#imgUrl').val("");
 
+		// 월매출누계, 연매출누계
+		$('#sumSales').css('display', 'none');
+   		$('#sumMonthSales').val('');	// 월매출누계
+   		$('#sumYearSales').val('');	// 월매출누계
+		
    		// 마감문자 포맷에 사용되는 값 초기화
    		mCloseDate = '';
    		mDailyRoomSalesCnt = 0;	// 일 판매 객실수 		
